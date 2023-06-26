@@ -1,4 +1,4 @@
-> **RIUS POLICEJOB**
+> **ARIUS POLICEJOB**
 > 
 > *Experience the ultimate law enforcement roleplay with Arius Policejob :police_officer_tone4:. Restrain suspects, conduct thorough searches, issue fines, access police gear, and more. Explore a comprehensive system that brings realism and immersion to your policing adventures.!*
 > 
