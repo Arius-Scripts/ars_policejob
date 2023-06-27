@@ -79,8 +79,6 @@ function player.startAnim(status)
 end
 
 RegisterNetEvent('ars_policejob:handcuff', function(status)
-	if not isPoliceOfficer() then return end
-
 	player.startAnim(status)
 
 	local playerPed = cache.ped

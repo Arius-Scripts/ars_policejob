@@ -8,7 +8,7 @@ RegisterNetEvent('ars_policejob:handcuff', function(data)
 		print(source .. ' probile modder')
 	else
 		TriggerClientEvent('ars_policejob:handcuff', tonumber(data.targetServerId), data.handcuffStatus)
-		exports.ox_inventory:RemoveItem(source, 'cuffs', 1)
+		exports.ox_inventory:RemoveItem(source, Config.ItemCuffs, 1)
 	end
 end)
 
