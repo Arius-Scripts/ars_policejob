@@ -39,5 +39,6 @@
 	"take_spikestrips_label": "spikestrips",
 	"placing_prop_instructions": "ㅤㅤㅤㅤㅤ**Controlli**ㅤㅤㅤㅤㅤ  \n [ENTER] piazzare  \n [BACKSPACE] per cancellare  \n [E] per ruotare a sinistra  \n [Q] per ruotare a destra",
 	"view_cameras_label": "Visualizza la fotocamera",
-	"camera_instructions": "ㅤㅤㅤㅤㅤ**CONTROLS**ㅤㅤㅤㅤㅤ  \n [E / Q] per cambiare fotocamera  \n [A] per ruotare a sinistrate left  \n [D] per ruotare a destra  \n [SCROLL UP] per ingrandire  \n [SCROLLL DOWN] Per ingrandire  \n [BACKSPACE] uscire   \n [CURRENT CAM] %s"
+	"camera_instructions": "ㅤㅤㅤㅤㅤ**CONTROLS**ㅤㅤㅤㅤㅤ  \n [E / Q] per cambiare fotocamera  \n [A] per ruotare a sinistrate left  \n [D] per ruotare a destra  \n [SCROLL UP] per ingrandire  \n [SCROLLL DOWN] Per ingrandire  \n [BACKSPACE] uscire   \n [CURRENT CAM] %s",
+	"stop_dragging": "[BACKSPACE] per fermare "
 }

@@ -39,5 +39,6 @@
 	"take_spikestrips_label": "Spikestrips",
 	"placing_prop_instructions": "ㅤㅤㅤㅤㅤ**CONTROLS**ㅤㅤㅤㅤㅤ  \n [ENTER] to place  \n [BACKSPACE] to cancel  \n [E] to rotate left  \n [Q] to rotate right",
 	"view_cameras_label": "View Camera",
-	"camera_instructions": "ㅤㅤㅤㅤㅤ**CONTROLS**ㅤㅤㅤㅤㅤ  \n [E / Q] to swtich camera   \n [A] to rotate left  \n [D] to rotate right  \n [SCROLL UP] to zooom in  \n [SCROLLL DOWN] to zoom out  \n [BACKSPACE] to exit   \n [CURRENT CAM] %s"
+	"camera_instructions": "ㅤㅤㅤㅤㅤ**CONTROLS**ㅤㅤㅤㅤㅤ  \n [E / Q] to swtich camera   \n [A] to rotate left  \n [D] to rotate right  \n [SCROLL UP] to zooom in  \n [SCROLLL DOWN] to zoom out  \n [BACKSPACE] to exit   \n [CURRENT CAM] %s",
+	"stop_dragging": "[BACKSPACE] to stop dragging "
 }

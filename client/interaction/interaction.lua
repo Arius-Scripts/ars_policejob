@@ -91,11 +91,7 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					local playerCoords = cache.coords
-					local vehicle, vehicleCoords = lib.getClosestVehicle(playerCoords, 3, false)
-
-					return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
-						vehicle
+					return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3))
 				end,
 				onSelect = function(data)
 					player.drag(data.entity)

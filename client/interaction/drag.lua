@@ -65,8 +65,6 @@ function player.drag(target)
 end
 
 RegisterNetEvent('ars_policejob:drag', function(playerid)
-	if not isPoliceOfficer() then return end
-
 	player.isDragged = not player.isDragged
 
 	local playerPed = cache.ped
