@@ -39,7 +39,7 @@ local function getEquipment(data)
 
         if storageItem and storageItem >= equipmentItem.quantity then
             if playerItem < equipmentItem.quantity then
-                TaskPlayAnim(policePed, animDict, 'pistol_on_counter_cop', 2.0, -1.0, 1.0, 0, 0, 0, 0, 0)
+                TaskPlayAnim(policePed, animDict, 'pistol_on_counter_cop', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                 Wait(1100)
 
@@ -50,14 +50,14 @@ local function getEquipment(data)
 
                 AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true,
                     false, true, 1, true)
-                TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 2.0, -1.0, 1.0, 0, 0, 0, 0, 0)
+                TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                 Wait(2000)
 
                 DeleteEntity(object)
                 local placedObject = CreateObject(itemModel, equipmentItem.prop.placePos, true, true, true)
 
-                SetEntityRotation(placedObject, 0, 0, -0, 2, true)
+                SetEntityRotation(placedObject, 90.0, 0.0, -90.0, 2, true)
                 Wait(2000)
                 AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0,
                     true, true, false, true, 1, true)
