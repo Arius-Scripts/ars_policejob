@@ -9,6 +9,7 @@
  **Dependencies:**
  - ox_inventory
  - ox_target
+ - pickle_prisons / qalle-jail (if using arrest functionality)
 
  **Features:**
  - HandCuffs system for restraining suspects
