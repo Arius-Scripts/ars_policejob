@@ -14,7 +14,7 @@ function utils.createPed(name, coords)
 
     if not model then return end
 
-    local ped = CreatePed(0, model, coords, false, true)
+    local ped = CreatePed(0, model, coords, false, false)
 
     FreezeEntityPosition(ped, true)
     SetEntityInvincible(ped, true)

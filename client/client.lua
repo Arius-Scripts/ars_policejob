@@ -30,16 +30,29 @@ local zone = lib.zones.box({
     size = cfg.zone.size,
     clothes = Config.ClothingScript and cfg.clothes,
     rotation = 0.0,
-    onEnter = function (self)
+    onEnter = function(self)
         if self.clothes then
             initClothes(self.clothes)
         end
         initArmory(cfg.armory)
         initGarage(cfg.garage)
     end,
-    onExit = function (self)
+    onExit = function(self)
         for k, v in pairs(peds) do
+            DeleteEntity(v)
             DeletePed(v)
         end
     end
 })
+
+
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then
+        return
+    end
+    for k, v in pairs(peds) do
+        DeleteEntity(v)
+        DeletePed(v)
+    end
+end)

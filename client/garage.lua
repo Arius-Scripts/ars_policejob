@@ -66,13 +66,13 @@ local function depositVehicle(data)
             if data.currentDistance < 2 and IsControlJustReleased(0, 38) then
                 TaskLeaveVehicle(playerPed, playerVehicle, 64)
 
-                local vehicleToDelete = playerVehicle
+                while cache.vehicle do Wait(100) end
 
-                while playerVehicle do Wait(100) end
+                local vehicleToDelete = playerVehicle
 
                 lib.hideTextUI()
 
-                local policeDriver = utils.createPed(garage.model, garage.driverSpawnCoords)
+                local policeDriver = utils.createPed(data.model, data.driverSpawnCoords)
                 FreezeEntityPosition(policeDriver, false)
 
                 TaskEnterVehicle(policeDriver, vehicleToDelete, -1, -1, 1.0, 1, 0)
@@ -112,6 +112,7 @@ function initGarage(data)
                 label = locale('garage_interact_label'),
                 icon = 'fa-solid fa-car',
                 distance = 3,
+                groups = Config.PoliceJobName,
                 canInteract = function(entity, distance, coords, name, bone)
                     return not IsEntityDead(entity)
                 end,
@@ -134,7 +135,11 @@ function initGarage(data)
             onExit = function(self)
                 lib.hideTextUI()
             end,
-            nearby = depositVehicle
+            nearby = function(self)
+                self.model = garage.model
+                self.driverSpawnCoords = garage.driverSpawnCoords
+                depositVehicle(self)
+            end
 
         })
     end
