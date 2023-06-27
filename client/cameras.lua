@@ -16,7 +16,6 @@ local SetCamActive                 = SetCamActive
 local CreateCamWithParams          = CreateCamWithParams
 local SetTimecycleModifier         = SetTimecycleModifier
 local SetTimecycleModifierStrength = SetTimecycleModifierStrength
-local PlaySoundFrontend            = PlaySoundFrontend
 local FreezeEntityPosition         = FreezeEntityPosition
 
 
@@ -118,7 +117,6 @@ local function viewCamera()
     SetTimecycleModifierStrength(2.0)
 
     local playerPed = cache.ped
-    PlaySoundFrontend(playerPed, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
     updateCamInstruction(currentCamera)
     viewingCam = true
     startLoop()
