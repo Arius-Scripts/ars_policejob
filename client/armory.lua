@@ -37,7 +37,7 @@ local function getEquipment(data)
             storageItem = storageItem[string.upper(equipmentItem.item)]
         end
 
-        if storageItem and storageItem > 0 then
+        if storageItem and storageItem >= equipmentItem.quantity then
             if playerItem < equipmentItem.quantity then
                 TaskPlayAnim(policePed, animDict, 'pistol_on_counter_cop', 0, -0, 0, 0, 0, 0, 0, 0)
 
