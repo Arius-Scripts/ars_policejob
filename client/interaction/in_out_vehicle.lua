@@ -18,8 +18,6 @@ function player.putInVehicle(target)
 end
 
 RegisterNetEvent('ars_policejob:putInVehicle', function()
-    if not isPoliceOfficer() then return end
-
     local playerPed = cache.ped
     local playerCoords = cache.coords
     local vehicle, vehicleCoords = lib.getClosestVehicle(playerCoords, 3, false)
@@ -66,8 +64,6 @@ function player.takeOutFromVehicle(coords)
 end
 
 RegisterNetEvent('ars_policejob:putOutVehicle', function()
-    if not isPoliceOfficer() then return end
-
     local playerPed = cache.ped
     local playerVehicle = cache.vehicle
 
