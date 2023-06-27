@@ -79,4 +79,4 @@ RegisterNetEvent('ars_policejob:activateBlip', function(data)
     RemoveBlip(blip)
 end)
 
-RegisterCommand('interdict', openDialogMenu)
+RegisterCommand(Config.RestricAreaCommand, openDialogMenu)
