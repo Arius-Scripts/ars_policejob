@@ -32,6 +32,9 @@
  
  **Download:**
  https://github.com/Arius-Development/ars_policejob
+
+**Installation**
+  https://ariuss-development.gitbook.io/ariusdevelopment/
   
  **Forums:**
   https://forum.cfx.re/t/free-esx-qbcore-arius-policejob/5128137
