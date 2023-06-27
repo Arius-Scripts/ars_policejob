@@ -5,6 +5,7 @@ Config = {}
 Config.PoliceJobName = 'police'
 Config.ClothingScript = 'core'         -- 'illenium-appearance', 'fivem-appearance' ,'core' or false -- to disable
 Config.PrisonSystem = 'pickle_prisons' -- 'pickle_prisons', 'esx-qalle-jail'
+Config.ItemCuffs = "cuffs"             -- name of the item cuffs
 
 Config.Interactions = {
 	enable = true,

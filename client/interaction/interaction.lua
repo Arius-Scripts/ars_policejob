@@ -48,7 +48,7 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					local count = exports.ox_inventory:Search('count', 'cuffs')
+					local count = exports.ox_inventory:Search('count', Config.ItemCuffs)
 
 					return count > 0
 						and (not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(
