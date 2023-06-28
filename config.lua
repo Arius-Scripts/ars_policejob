@@ -2,6 +2,8 @@ lib.locale()
 
 Config = {}
 
+Config.Debug = true
+
 Config.PoliceJobName = 'police'
 Config.ClothingScript = 'core'         -- 'illenium-appearance', 'fivem-appearance' ,'core' or false -- to disable
 Config.PrisonSystem = 'pickle_prisons' -- 'pickle_prisons', 'esx-qalle-jail'

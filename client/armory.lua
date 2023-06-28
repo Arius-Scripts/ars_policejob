@@ -12,6 +12,13 @@ local ClearPedTasks = ClearPedTasks
 local IsEntityPlayingAnim = IsEntityPlayingAnim
 local TriggerServerEvent = TriggerServerEvent
 
+
+RegisterCommand("testanim", function()
+    local animDict = lib.requestAnimDict('mp_arresting')
+
+    TaskPlayAnim(cache.ped, animDict, 'idle', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
+end)
+
 local function getEquipment(data)
     local playerPed = cache.ped
     local policePed = data.entity

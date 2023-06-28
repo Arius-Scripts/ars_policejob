@@ -34,4 +34,10 @@ function utils.showNotification(msg, type)
     })
 end
 
+function utils.debug(msg)
+    if Config.Debug then
+        print(("^3DEBUG: %s ^7"):format(msg))
+    end
+end
+
 RegisterNetEvent('ars_policejob:showNotification', utils.showNotification)

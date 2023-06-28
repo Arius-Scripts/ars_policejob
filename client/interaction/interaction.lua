@@ -31,6 +31,9 @@ local function playerInteractions()
 			groups = Config.PoliceJobName,
 			distance = 3,
 			canInteract = function(entity, distance, coords, name)
+				utils.debug("Is Target Fragile: " .. isEntityFragile(entity))
+				utils.debug("Are you armed: " .. IsPedArmed(cache.ped, 6))
+
 				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6)
 			end,
 			onSelect = function(data)
@@ -50,14 +53,15 @@ local function playerInteractions()
 				canInteract = function(entity, distance, coords, name)
 					local count = exports.ox_inventory:Search('count', Config.ItemCuffs)
 
-					return count > 0
-						and (not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(
-							entity,
-							'mp_arresting',
-							'idle',
-							3
-						))
-						and IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3)
+					utils.debug("Have handcuffs: " .. count)
+					utils.debug("Is target not playing handcuffed animation: " ..
+						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
+					utils.debug("Is target playing hands up animation: " ..
+						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3))
+
+					return count > 0 and
+						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
+						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3)
 				end,
 				onSelect = function(data)
 					player.handcuff(data.entity)
@@ -72,6 +76,10 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
+					utils.debug("Is target playing handcuffed animation: " ..
+						IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3)
+						or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3))
+
 					return IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3)
 						or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)
 				end,
@@ -91,6 +99,9 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
+					utils.debug("Is target playing handcuffed animation: " ..
+						(IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
+
 					return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3))
 				end,
 				onSelect = function(data)
@@ -111,6 +122,11 @@ local function playerInteractions()
 				local playerCoords = cache.coords
 				local vehicle, vehicleCoords = lib.getClosestVehicle(playerCoords, 3, false)
 
+				utils.debug("Is target playing handcuffed animation: " ..
+					(IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
+
+				utils.debug("Is there a vehicle neaby: " .. vehicle)
+
 				return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
 					vehicle
 			end,
@@ -127,9 +143,6 @@ local function playerInteractions()
 			label = locale('fine_suspect_label'),
 			groups = Config.PoliceJobName,
 			distance = 3,
-			canInteract = function(entity, distance, coords, name)
-				return true
-			end,
 			onSelect = function(data)
 				player.finePlayer(data.entity)
 			end
@@ -191,7 +204,8 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.PoliceJobName,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity)
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
+				not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_roadcone02a')
@@ -204,7 +218,8 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.PoliceJobName,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity)
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
+				not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_barrier_work05')
@@ -217,7 +232,8 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.PoliceJobName,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity)
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
+				not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('p_ld_stinger_s')
