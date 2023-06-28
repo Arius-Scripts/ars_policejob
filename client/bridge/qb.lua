@@ -4,10 +4,14 @@ if not QBCore then return end
 
 function toggleClothes(toggle, clothes)
     if toggle then
+        utils.debug("Putting on clothes")
+
         local playerData = QBCore.Functions.GetPlayerData()
         local gender = playerData.charinfo.gender
         local playerPed = cache.ped
         local jobGrade = playerData.job.grade
+
+        utils.debug("Job Grade " .. jobGrade)
 
         if Config.ClothingScript and Config.ClothingScript ~= 'core' then
             local model = exports['illenium-appearance']:getPedModel(playerPed)
@@ -17,6 +21,8 @@ function toggleClothes(toggle, clothes)
             elseif model == 'mp_f_freemode_01' then
                 data = clothes.female[jobGrade] or clothes.female[1]
             end
+
+            utils.debug("Using " .. Config.ClothingScript)
 
             exports[Config.ClothingScript]:setPedComponents(playerPed, {
                 braccia      = { component_id = 3, texture = 0, drawable = data['arms'] },
@@ -62,6 +68,8 @@ function toggleClothes(toggle, clothes)
                 },
             })
         elseif Config.ClothingScript == 'core' then
+            utils.debug("Using " .. Config.ClothingScript)
+
             if gender == 1 then
                 TriggerEvent('qb-clothing:client:loadOutfit', { outfitData = clothes.male[jobGrade] })
             else
@@ -69,6 +77,8 @@ function toggleClothes(toggle, clothes)
             end
         end
     else
+        utils.debug("Putting civil clothes")
+
         TriggerServerEvent('qb-clothes:loadPlayerSkin')
     end
 end

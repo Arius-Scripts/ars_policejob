@@ -4,9 +4,13 @@ if not ESX then return end
 
 function toggleClothes(toggle, clothes)
     if toggle then
+        utils.debug("Putting on clothes")
+
         local playerData = ESX.GetPlayerData()
         local playerPed = cache.ped
         local jobGrade = playerData.job.grade
+
+        utils.debug("Job Grade " .. jobGrade)
 
         if Config.ClothingScript and Config.ClothingScript ~= 'core' then
             local model = exports['illenium-appearance']:getPedModel(playerPed)
@@ -16,6 +20,8 @@ function toggleClothes(toggle, clothes)
             elseif model == 'mp_f_freemode_01' then
                 data = clothes.female[jobGrade] or clothes.female[1]
             end
+
+            utils.debug("Using " .. Config.ClothingScript)
 
             exports[Config.ClothingScript]:setPedComponents(playerPed, {
                 { component_id = 3, texture = 0, drawable = data['arms'] },
@@ -61,6 +67,7 @@ function toggleClothes(toggle, clothes)
                 },
             })
         elseif Config.ClothingScript == 'core' then
+            utils.debug("Using " .. Config.ClothingScript)
             ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
                 local gender = skin.sex
 
@@ -72,6 +79,8 @@ function toggleClothes(toggle, clothes)
             end)
         end
     else
+        utils.debug("Putting civil clothes")
+
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
             TriggerEvent('skinchanger:loadSkin', skin)
             TriggerEvent('esx:restoreLoadout')
