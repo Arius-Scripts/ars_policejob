@@ -22,6 +22,18 @@ local function isEntityFragile(entity) -- yoinked from ox_inventory
 		or IsEntityPlayingAnim(entity, 'random@dealgonewrong', 'idle_a', 3)
 end
 
+local function isEntityHandCuffed(entity)
+	return IsPedCuffed(entity)
+		or IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3)
+		or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)
+end
+
+local function isEntityHandsUp(entity)
+	return IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_base', 3)
+		or IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3)
+		or IsEntityPlayingAnim(entity, 'random@mugging3', 'handsup_standing_base', 3)
+end
+
 local function playerInteractions()
 	if Config.Interactions.search then
 		table.insert(player.interactions, {
@@ -54,14 +66,10 @@ local function playerInteractions()
 					local count = exports.ox_inventory:Search('count', Config.ItemCuffs)
 
 					utils.debug("Have handcuffs: " .. count)
-					utils.debug("Is target not playing handcuffed animation: " ..
-						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
-					utils.debug("Is target playing hands up animation: " ..
-						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3))
+					utils.debug("Is target not handcuffed: " .. not isEntityHandCuffed(entity))
+					utils.debug("Is target playing hands up animation: " .. isEntityHandsUp(entity))
 
-					return count > 0 and
-						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
-						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3)
+					return count > 0 and not isEntityHandCuffed(entity) and isEntityHandsUp(entity)
 				end,
 				onSelect = function(data)
 					player.handcuff(data.entity)
@@ -76,12 +84,9 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					utils.debug("Is target playing handcuffed animation: " ..
-						IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3)
-						or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3))
+					utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
 
-					return IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3)
-						or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)
+					return isEntityHandCuffed(entity)
 				end,
 				onSelect = function(data)
 					player.uncuff(data.entity)
@@ -99,10 +104,9 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					utils.debug("Is target playing handcuffed animation: " ..
-						(IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
+					utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
 
-					return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3))
+					return isEntityHandCuffed(entity)
 				end,
 				onSelect = function(data)
 					player.drag(data.entity)
@@ -122,13 +126,10 @@ local function playerInteractions()
 				local playerCoords = cache.coords
 				local vehicle, vehicleCoords = lib.getClosestVehicle(playerCoords, 3, false)
 
-				utils.debug("Is target playing handcuffed animation: " ..
-					(IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
-
+				utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
 				utils.debug("Is there a vehicle neaby: " .. vehicle)
 
-				return (IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
-					vehicle
+				return isEntityHandCuffed(entity) and vehicle
 			end,
 			onSelect = function(data)
 				player.putInVehicle(data.entity)
@@ -159,8 +160,13 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					return (not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
-						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3) and
+					utils.debug("Is Target not handcuffed: " .. not isEntityHandCuffed(entity))
+					utils.debug("Does target have handsup: " .. isEntityHandsUp(entity))
+					utils.debug("Are you near the police station: " .. #(cache.coords - Config.PoliceStation.zone.pos) <=
+					120)
+
+
+					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and
 						#(cache.coords - Config.PoliceStation.zone.pos) <= 120
 				end,
 				onSelect = function(data)
