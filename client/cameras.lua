@@ -126,6 +126,7 @@ exports.ox_target:addBoxZone({
     coords = Config.PoliceStation.cameras.pos,
     size = vector3(2.0, 2.0, 2.0),
     drawSprite = true,
+    groups = Config.PoliceJobName,
     options = {
         {
             name = "view_cameras",
