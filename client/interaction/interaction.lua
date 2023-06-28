@@ -69,12 +69,9 @@ local function playerInteractions()
 					utils.debug(("^2handcuff_suspect ^3 Is target handcuffed: %s"):format(not
 						isEntityHandCuffed(entity)))
 					utils.debug(("^2handcuff_suspect ^3 Does target have hands up: %s"):format(
-						isEntityHandsUp(
-							entity)))
+						isEntityHandsUp(entity)))
 
-					return count > 0 and
-						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
-						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3)
+					return count > 0 and not isEntityHandCuffed(entity) and isEntityHandsUp(entity)
 				end,
 				onSelect = function(data)
 					player.handcuff(data.entity)
