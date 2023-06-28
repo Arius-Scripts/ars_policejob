@@ -13,6 +13,8 @@ local IsEntityPlayingAnim = IsEntityPlayingAnim
 local TriggerServerEvent = TriggerServerEvent
 
 local function getEquipment(data)
+    utils.debug("Getting equipment")
+
     local playerPed = cache.ped
     local policePed = data.entity
 
@@ -39,6 +41,8 @@ local function getEquipment(data)
 
         if storageItem and storageItem >= equipmentItem.quantity then
             if playerItem < equipmentItem.quantity then
+                utils.debug("Getting item" .. equipmentItem.item .. " quantity: " .. equipmentItem.quantity - playerItem)
+
                 TaskPlayAnim(policePed, animDict, 'pistol_on_counter_cop', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                 Wait(1100)

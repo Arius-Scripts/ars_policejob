@@ -24,6 +24,7 @@ local function pressToUnDrag(target)
 	local textUi = false
 
 	while player.isDragging do
+		utils.debug("Dragging suspect")
 		if not textUi then
 			textUi = true
 			lib.showTextUI(locale('stop_dragging'), {

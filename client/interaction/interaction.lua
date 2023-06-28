@@ -43,8 +43,8 @@ local function playerInteractions()
 			groups = Config.PoliceJobName,
 			distance = 3,
 			canInteract = function(entity, distance, coords, name)
-				utils.debug("Is Target Fragile: " .. isEntityFragile(entity))
-				utils.debug("Are you armed: " .. IsPedArmed(cache.ped, 6))
+				utils.debug(("^1search_suspect ^3 Is Target Fragile: %s"):format(isEntityFragile(entity)))
+				utils.debug(("^1search_suspect ^3 Are you armed: %s"):format(IsPedArmed(cache.ped, 6)))
 
 				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6)
 			end,
@@ -65,11 +65,12 @@ local function playerInteractions()
 				canInteract = function(entity, distance, coords, name)
 					local count = exports.ox_inventory:Search('count', Config.ItemCuffs)
 
-					utils.debug("Have handcuffs: " .. count)
-					utils.debug("Is target not playing handcuffed animation: " ..
-						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)))
-					utils.debug("Is target playing hands up animation: " ..
-						IsEntityPlayingAnim(entity, 'missminuteman_1ig_2', 'handsup_enter', 3))
+					utils.debug("^2handcuff_suspect ^3 Have handcuffs: " .. count)
+					utils.debug(("^2handcuff_suspect ^3 Is target handcuffed: %s"):format(not
+						isEntityHandCuffed(entity)))
+					utils.debug(("^2handcuff_suspect ^3 Does target have hands up: %s"):format(
+						isEntityHandsUp(
+							entity)))
 
 					return count > 0 and
 						(not IsEntityPlayingAnim(entity, 'anim@move_m@prisoner_cuffed', 'idle', 3) or not IsEntityPlayingAnim(entity, 'mp_arresting', 'idle', 3)) and
@@ -88,7 +89,7 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
+					utils.debug(("uncuff_suspect Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
 
 					return isEntityHandCuffed(entity)
 				end,
@@ -108,7 +109,7 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
+					utils.debug(("^4drag_suspect ^3 Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
 
 					return isEntityHandCuffed(entity)
 				end,
@@ -130,8 +131,8 @@ local function playerInteractions()
 				local playerCoords = cache.coords
 				local vehicle, vehicleCoords = lib.getClosestVehicle(playerCoords, 3, false)
 
-				utils.debug("Is Target handcuffed: " .. isEntityHandCuffed(entity))
-				utils.debug("Is there a vehicle neaby: " .. vehicle)
+				utils.debug(("^5put_suspect_in^3 Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
+				utils.debug(("^5put_suspect_in^3 Is there a vehicle neaby: %s"):format(vehicle))
 
 				return isEntityHandCuffed(entity) and vehicle
 			end,
@@ -164,11 +165,10 @@ local function playerInteractions()
 				groups = Config.PoliceJobName,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
-					utils.debug("Is Target not handcuffed: " .. not isEntityHandCuffed(entity))
-					utils.debug("Does target have handsup: " .. isEntityHandsUp(entity))
-					utils.debug("Are you near the police station: " .. #(cache.coords - Config.PoliceStation.zone.pos) <=
-						120)
-
+					utils.debug(("^6arrest_suspect^3 Is Target not handcuffed: %s"):format(not isEntityHandCuffed(entity)))
+					utils.debug(("^6arrest_suspect^3 Does target have handsup: %s"):format(isEntityHandsUp(entity)))
+					utils.debug(("^6arrest_suspect^3 Are you near the police station: %s"):format(#(cache.coords - Config.PoliceStation.zone.pos) <=
+						120))
 
 					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and
 						#(cache.coords - Config.PoliceStation.zone.pos) <= 120
