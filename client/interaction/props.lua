@@ -63,7 +63,7 @@ local function placeProp(prop)
                 distance = 1.5,
                 groups = Config.PoliceJobName,
                 canInteract = function(entity, distance, coords, name)
-                    return player.isPlacingProp
+                    return not player.isPlacingProp
                 end,
                 onSelect = function(data)
                     local playerCoords = cache.coords
