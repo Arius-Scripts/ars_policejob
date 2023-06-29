@@ -39,7 +39,6 @@ local zone = lib.zones.box({
     end,
     onExit = function(self)
         for k, v in pairs(peds) do
-            DeleteEntity(v)
             DeletePed(v)
         end
     end
@@ -52,7 +51,6 @@ AddEventHandler('onResourceStop', function(resourceName)
         return
     end
     for k, v in pairs(peds) do
-        DeleteEntity(v)
         DeletePed(v)
     end
 end)
