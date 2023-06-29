@@ -62,6 +62,9 @@ local function placeProp(prop)
                 label = 'Pick up',
                 distance = 1.5,
                 groups = Config.PoliceJobName,
+                canInteract = function(entity, distance, coords, name)
+                    return player.isPlacingProp
+                end,
                 onSelect = function(data)
                     local playerCoords = cache.coords
                     local heading = GetHeadingFromVector_2d(propCoords.x - playerCoords.x, propCoords.y - playerCoords.y)
@@ -148,6 +151,7 @@ function player.spawnProp(prop)
 
         if IsControlJustPressed(0, 177) then
             deleteProp(placingProp)
+            player.isPlacingProp = false
             break
         end
 
