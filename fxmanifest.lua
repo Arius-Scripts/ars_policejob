@@ -50,3 +50,9 @@ shared_scripts {
 files {
 	'locales/*.json',
 }
+
+dependencies {
+	'ox_inventory',
+	'ox_lib',
+	"ox_target"
+}
