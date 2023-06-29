@@ -2,7 +2,7 @@ lib.locale()
 
 Config = {}
 
-Config.Debug = true
+Config.Debug = false
 
 Config.PoliceJobName = 'police'
 Config.ClothingScript = 'core'         -- 'illenium-appearance', 'fivem-appearance' ,'core' or false -- to disable
@@ -95,7 +95,7 @@ Config.PoliceStation = {
 					label = 'Police',
 					spawn_code = 'police',
 					min_grade = 0,
-					modifications = {}
+					modifications = {} -- es. {color1 = {255, 12, 25}}
 				},
 				{
 					label = 'Police 2',

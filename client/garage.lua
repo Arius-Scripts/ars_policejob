@@ -18,17 +18,18 @@ local DeletePed                = DeletePed
 
 local depositPositions         = {}
 
-local function openCarList(garage, coords, heading)
+local function openCarList(garage)
     local vehicles = {}
     local playerPed = cache.ped
     local jobGrade = getPlayerJobGrade()
-    for k, v in pairs(garage) do
+
+    for k, v in pairs(garage.vehicles) do
         if jobGrade >= v.min_grade then
             table.insert(vehicles, {
                 title = v.label,
                 onSelect = function(data)
-                    local isPosOccupied = IsPositionOccupied(coords.x, coords.y, coords.z, 10, false, true, true, false,
-                        false, 0, false)
+                    local isPosOccupied = IsPositionOccupied(garage.spawn.x, garage.spawn.y, garage.spawn.z, 10, false,
+                        true, true, false, false, 0, false)
 
                     if isPosOccupied then return end
 
@@ -36,9 +37,11 @@ local function openCarList(garage, coords, heading)
 
                     if not model then return end
 
-                    local vehicle = CreateVehicle(model, coords, heading, true, false)
+                    local vehicle = CreateVehicle(model, garage.spawn.x, garage.spawn.y, garage.spawn.z, garage.spawn.w,
+                        true, false)
                     SetModelAsNoLongerNeeded(model)
                     NetworkFadeInEntity(vehicle, 1)
+                    lib.setVehicleProperties(vehicle, v.modifications)
 
                     TaskEnterVehicle(playerPed, vehicle, -1, -1, 1.0, 1, 0)
                 end
@@ -119,7 +122,7 @@ function initGarage(data)
                 onSelect = function(data)
                     local position, heading = vector3(garage.spawn.x, garage.spawn.y, garage.spawn.z),
                         garage.spawn.w
-                    openCarList(garage.vehicles, position, heading)
+                    openCarList(garage)
                 end,
             }
         })
