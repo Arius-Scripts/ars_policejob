@@ -9,6 +9,7 @@ Config.ClothingScript = 'core'         -- 'illenium-appearance', 'fivem-appearan
 Config.PrisonSystem = 'pickle_prisons' -- 'pickle_prisons', 'esx-qalle-jail'
 Config.ItemCuffs = "handcuffs"         -- name of the item cuffs
 Config.RestrictAreaCommand = "restrictarea"
+Config.CanBreakCuffs = true            -- to use this function follow the installation
 
 Config.Interactions = {
 	enable = true,

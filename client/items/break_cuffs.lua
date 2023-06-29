@@ -1,3 +1,5 @@
+if not Config.CanBreakCuffs then return end
+
 exports('breakCuffs', function(data, slot)
     exports.ox_inventory:useItem(data, function(data)
         if data then
