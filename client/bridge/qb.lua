@@ -87,7 +87,7 @@ function getPlayerJobGrade()
     local playerData = QBCore.Functions.GetPlayerData()
     local jobGrade = playerData.job.grade
 
-    return jobGrade
+    return type(jobGrade) == "table" and jobGrade.level or jobGrade
 end
 
 function isPoliceOfficer()
