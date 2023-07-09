@@ -9,7 +9,7 @@ function toggleClothes(toggle, clothes)
         local playerData = QBCore.Functions.GetPlayerData()
         local gender = playerData.charinfo.gender
         local playerPed = cache.ped
-        local jobGrade = playerData.job.grade
+        local jobGrade = getPlayerJobGrade()
 
         utils.debug("Job Grade " .. jobGrade)
 
