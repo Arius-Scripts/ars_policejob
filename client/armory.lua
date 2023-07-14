@@ -52,7 +52,7 @@ local function getEquipment(data)
                     local playerCoords = cache.coords
                     local object = CreateObject(itemModel, playerCoords.x, playerCoords.y, playerCoords.z + 1, true, true, true)
 
-                    AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0.1555, 0.03032, 0.0200, -10.4686, -0.36461, 3.0753, true, true, false, true, 1, true)
+                    AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true, false, true, 1, true)
                     TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                     Wait(2000)
@@ -62,7 +62,7 @@ local function getEquipment(data)
 
                     SetEntityRotation(placedObject, 90.0, 0.0, -90.0, 2, true)
                     Wait(2000)
-                    AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0.1555, 0.03032, 0.0200, -10.4686, -0.36461, 3.0753, true, true, false, true, 1, true)
+                    AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0, true, true, false, true, 1, true)
 
                     while IsEntityPlayingAnim(playerPed, animDict, 'pistol_on_counter', 3) do
                         Wait(0)
@@ -90,7 +90,7 @@ local function getEquipment(data)
                 local object = CreateObject(itemModel, playerCoords.x, playerCoords.y, playerCoords.z + 1, true, true,
                     true)
 
-                AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0.1555, 0.03032, 0.0200, -10.4686, -0.36461, 3.0753, true, true, false, true, 1, true)
+                AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true, false, true, 1, true)
                 TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                 Wait(2000)
@@ -100,7 +100,7 @@ local function getEquipment(data)
 
                 SetEntityRotation(placedObject, 90.0, 0.0, -90.0, 2, true)
                 Wait(2000)
-                AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0.1555, 0.03032, 0.0200, -10.4686, -0.36461, 3.0753, true, true, false, true, 1, true)
+                AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0, true, true, false, true, 1, true)
 
                 while IsEntityPlayingAnim(playerPed, animDict, 'pistol_on_counter', 3) do
                     Wait(0)
