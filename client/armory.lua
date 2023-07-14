@@ -27,19 +27,57 @@ local function getEquipment(data)
     local equipment = data.equipment[jobGrade] or data.equipment[1]
 
     for _, equipmentItem in ipairs(equipment) do
-        local storageItem = lib.callback.await('ars_policejob:getItemCount', false, data.storage.stashId,
-            equipmentItem.item)
         local playerItem = exports.ox_inventory:Search('count', equipmentItem.item) or 0
 
         if type(playerItem) == 'table' then
             playerItem = playerItem[string.upper(equipmentItem.item)]
         end
 
-        if type(storageItem) == 'table' then
-            storageItem = storageItem[string.upper(equipmentItem.item)]
-        end
+        if data.require_storage then
+            local storageItem = lib.callback.await('ars_policejob:getItemCount', false, data.storage.stashId, equipmentItem.item)
+            if type(storageItem) == 'table' then
+                storageItem = storageItem[string.upper(equipmentItem.item)]
+            end
 
-        if storageItem and storageItem >= equipmentItem.quantity then
+            if storageItem and storageItem >= 1 then
+                if playerItem < equipmentItem.quantity then
+                    local itemToGive = storageItem > equipmentItem.quantity and equipmentItem.quantity or storageItem
+                    utils.debug("Getting item" .. equipmentItem.item .. " quantity: " .. itemToGive - playerItem)
+
+                    TaskPlayAnim(policePed, animDict, 'pistol_on_counter_cop', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
+
+                    Wait(1100)
+
+                    local itemModel = lib.requestModel(equipmentItem.prop.model)
+                    local playerCoords = cache.coords
+                    local object = CreateObject(itemModel, playerCoords.x, playerCoords.y, playerCoords.z + 1, true, true, true)
+
+                    AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true, false, true, 1, true)
+                    TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
+
+                    Wait(2000)
+
+                    DeleteEntity(object)
+                    local placedObject = CreateObject(itemModel, equipmentItem.prop.placePos, true, true, true)
+
+                    SetEntityRotation(placedObject, 90.0, 0.0, -90.0, 2, true)
+                    Wait(2000)
+                    AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0, true, true, false, true, 1, true)
+
+                    while IsEntityPlayingAnim(playerPed, animDict, 'pistol_on_counter', 3) do
+                        Wait(0)
+                    end
+
+                    ClearPedTasks(policePed)
+                    TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, itemToGive - playerItem, true)
+                    DeleteEntity(placedObject)
+                else
+                    utils.showNotification(equipmentItem.label .. ' ' .. locale('already_have_item'))
+                end
+            else
+                utils.showNotification(equipmentItem.label .. ' ' .. locale('no_item_in_storage'))
+            end
+        else
             if playerItem < equipmentItem.quantity then
                 utils.debug("Getting item" .. equipmentItem.item .. " quantity: " .. equipmentItem.quantity - playerItem)
 
@@ -52,8 +90,7 @@ local function getEquipment(data)
                 local object = CreateObject(itemModel, playerCoords.x, playerCoords.y, playerCoords.z + 1, true, true,
                     true)
 
-                AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true,
-                    false, true, 1, true)
+                AttachEntityToEntity(object, policePed, GetPedBoneIndex(policePed, 57005), 0, 0, -0, 0, 0, 0, true, true, false, true, 1, true)
                 TaskPlayAnim(playerPed, animDict, 'pistol_on_counter', 1.0, -1, 1.0, 0, 0, 0, 0, 0)
 
                 Wait(2000)
@@ -63,22 +100,18 @@ local function getEquipment(data)
 
                 SetEntityRotation(placedObject, 90.0, 0.0, -90.0, 2, true)
                 Wait(2000)
-                AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0,
-                    true, true, false, true, 1, true)
+                AttachEntityToEntity(placedObject, playerPed, GetPedBoneIndex(playerPed, 57005), 0, 0, -0, -0, 0, -0, true, true, false, true, 1, true)
 
                 while IsEntityPlayingAnim(playerPed, animDict, 'pistol_on_counter', 3) do
                     Wait(0)
                 end
 
                 ClearPedTasks(policePed)
-                TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item,
-                    equipmentItem.quantity - playerItem)
+                TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, equipmentItem.quantity - playerItem, false)
                 DeleteEntity(placedObject)
             else
                 utils.showNotification(equipmentItem.label .. ' ' .. locale('already_have_item'))
             end
-        else
-            utils.showNotification(equipmentItem.label .. ' ' .. locale('no_item_in_storage'))
         end
     end
 end
@@ -111,7 +144,7 @@ function initArmory(data)
                 [Config.PoliceJobName] = data.storage.minGradeAccess
             },
             canInteract = function(entity, distance, coords, name, bone)
-                return true
+                return data.require_storage
             end,
             onSelect = function(entity)
                 exports.ox_inventory:openInventory('stash', data.storage.stashId)

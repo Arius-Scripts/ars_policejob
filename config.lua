@@ -46,6 +46,7 @@ Config.PoliceStation = {
 		pedPos = vector4(454.1804, -980.1198, 29.6896, 90.0000),
 		playerPos = vector4(452.3223, -980.0303, 29.7002, 270.0000),
 		model = 's_m_y_cop_01',
+		require_storage = true,
 		storage = {
 			stashId = 'podsalice_armory_storage',
 			stashLabel = 'LSPD Armory Storage',
