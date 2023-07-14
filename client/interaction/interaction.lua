@@ -1,3 +1,6 @@
+player              = {}
+player.interactions = {}
+
 if not Config.Interactions.enable then return end
 
 local IsPedFatallyInjured      = IsPedFatallyInjured
@@ -6,9 +9,6 @@ local IsEntityPlayingAnim      = IsEntityPlayingAnim
 local IsPedArmed               = IsPedArmed
 local TriggerEvent             = TriggerEvent
 local GetVehicleDoorAngleRatio = GetVehicleDoorAngleRatio
-
-player                         = {}
-player.interactions            = {}
 
 local function isEntityFragile(entity) -- yoinked from ox_inventory
 	return IsPedFatallyInjured(entity)
