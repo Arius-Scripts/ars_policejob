@@ -40,7 +40,7 @@ local function playerInteractions()
 			name = 'search_suspect',
 			icon = 'fas fa-magnifying-glass',
 			label = locale('search_suspect_label'),
-			groups = Config.PoliceJobName,
+			groups = Config.Interactions.jobs,
 			distance = 3,
 			canInteract = function(entity, distance, coords, name)
 				utils.debug(("^1search_suspect ^3 Is Target Fragile: %s"):format(isEntityFragile(entity)))
@@ -60,7 +60,7 @@ local function playerInteractions()
 				name = 'handcuff_suspect',
 				icon = 'fas fa-magnifying-glass',
 				label = locale('handcuff_suspect_label'),
-				groups = Config.PoliceJobName,
+				groups = Config.Interactions.jobs,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
 					local count = exports.ox_inventory:Search('count', Config.ItemCuffs)
@@ -83,7 +83,7 @@ local function playerInteractions()
 				name = 'uncuff_suspect',
 				icon = 'fas fa-magnifying-glass',
 				label = locale('uncuff_suspect_label'),
-				groups = Config.PoliceJobName,
+				groups = Config.Interactions.jobs,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("uncuff_suspect Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
@@ -103,7 +103,7 @@ local function playerInteractions()
 				name = 'drag_suspect',
 				icon = 'fas fa-magnifying-glass',
 				label = locale('drag_suspect_label'),
-				groups = Config.PoliceJobName,
+				groups = Config.Interactions.jobs,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("^4drag_suspect ^3 Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
@@ -122,7 +122,7 @@ local function playerInteractions()
 			name = 'put_suspect_in',
 			icon = 'fas fa-magnifying-glass',
 			label = locale('put_suspect_in_vehicle_label'),
-			groups = Config.PoliceJobName,
+			groups = Config.Interactions.jobs,
 			distance = 3,
 			canInteract = function(entity, distance, coords, name)
 				local playerCoords = cache.coords
@@ -144,7 +144,7 @@ local function playerInteractions()
 			name = 'fine_suspect',
 			icon = 'fas fa-magnifying-glass',
 			label = locale('fine_suspect_label'),
-			groups = Config.PoliceJobName,
+			groups = Config.Interactions.jobs,
 			distance = 3,
 			onSelect = function(data)
 				player.finePlayer(data.entity)
@@ -159,7 +159,7 @@ local function playerInteractions()
 				name = 'arrest_suspect',
 				icon = 'fas fa-magnifying-glass',
 				label = locale('arrest_suspect_label'),
-				groups = Config.PoliceJobName,
+				groups = Config.Interactions.jobs,
 				distance = 3,
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("^6arrest_suspect^3 Is Target not handcuffed: %s"):format(not isEntityHandCuffed(entity)))
@@ -194,7 +194,7 @@ local function vehicleInteractions()
 			icon = 'fa-solid fa-car-side',
 			label = locale('take_suspect_out_vehicle_label'),
 			bones = { doorBone, seatBone },
-			groups = Config.PoliceJobName,
+			groups = Config.Interactions.jobs,
 			canInteract = function(entity, distance, coords, name)
 				return player.showPutOutOption(entity, coords, doorBone, seatBone)
 			end,
@@ -209,7 +209,7 @@ local function vehicleInteractions()
 		icon = 'fa-solid fa-code',
 		label = locale("take_cone_label"),
 		bones = 'boot',
-		groups = Config.PoliceJobName,
+		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
 			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
 				not player.isPlacingProp
@@ -223,7 +223,7 @@ local function vehicleInteractions()
 		icon = 'fa-solid fa-road-barrier',
 		label = locale("take_barrier_label"),
 		bones = 'boot',
-		groups = Config.PoliceJobName,
+		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
 			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
 				not player.isPlacingProp
@@ -237,7 +237,7 @@ local function vehicleInteractions()
 		icon = 'fa-solid fa-road-spikes',
 		label = locale("take_spikestrips_label"),
 		bones = 'boot',
-		groups = Config.PoliceJobName,
+		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
 			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
 				not player.isPlacingProp

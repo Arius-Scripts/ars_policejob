@@ -59,7 +59,7 @@ local function openClothingMenu(clothes)
     lib.showContext('clothing_menu')
 end
 
-function initClothes(data)
+function initClothes(data, jobs)
     local ped = utils.createPed(data.model, data.pos)
 
     exports.ox_target:addLocalEntity(ped, {
@@ -67,7 +67,7 @@ function initClothes(data)
             name = 'clothing' .. ped,
             label = locale('clothing_interact_label'),
             icon = 'fa-solid fa-road',
-            groups = Config.PoliceJobName,
+            groups = jobs,
             canInteract = function(entity, distance, coords, name, bone)
                 return true
             end,

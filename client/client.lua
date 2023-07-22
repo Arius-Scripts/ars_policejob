@@ -38,7 +38,7 @@ for index, station in pairs(Config.PoliceStations) do
         onEnter = function(self)
             station = station
             if self.clothes then
-                initClothes(self.clothes)
+                initClothes(self.clothes, station.jobs)
             end
             cfg.armory.jobs = station.jobs
             initArmory(cfg.armory)

@@ -61,7 +61,7 @@ local function placeProp(prop)
                 name = 'placed_prop' .. placedProp,
                 label = 'Pick up',
                 distance = 1.5,
-                groups = Config.PoliceJobName,
+                groups = Config.Interactions.jobs,
                 canInteract = function(entity, distance, coords, name)
                     return not player.isPlacingProp
                 end,
