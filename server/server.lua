@@ -5,12 +5,11 @@ CreateThread(function()
         if cfg.armory.require_storage then
             local armory = cfg.armory.storage
 
-            exports.ox_inventory:RegisterStash(armory.stashId, armory.stashLabel, 500, 1000 * 1000, nil,
-                { [Config.PoliceJobName] = armory.minGradeAccess }, nil)
+            exports.ox_inventory:RegisterStash(armory.stashId, armory.stashLabel, 500, 1000 * 1000, nil, station.jobs, nil)
 
             for id, stash in pairs(cfg.stash) do
                 exports.ox_inventory:RegisterStash(id, stash.label, stash.slots, stash.weight * 1000,
-                    cfg.stash.shared and true or nil, { [Config.PoliceJobName] = stash.min_grade }, stash.pos)
+                    cfg.stash.shared and true or nil, station.jobs, stash.pos)
             end
         end
     end
