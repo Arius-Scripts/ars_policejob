@@ -7,8 +7,16 @@ function removeAccountMoney(target, account, amount)
     xPlayer.Functions.RemoveMoney(account, amount)
 end
 
-function isPoliceOfficer(target)
+function hasJob(target, jobs)
     local xPlayer = QBCore.Functions.GetPlayer(target)
 
-    return xPlayer.PlayerData.job.name == Config.PoliceJobName
+    if type(jobs) == "table" then
+        for index, jobName in pairs(jobs) do
+            if xPlayer.PlayerData.job.name == jobName then return true end
+        end
+    else
+        return xPlayer.PlayerData.job.name == jobs
+    end
+
+    return false
 end

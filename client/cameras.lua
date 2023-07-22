@@ -27,8 +27,8 @@ local camera
 local viewingCam
 local currentRotCam = 0
 
-local function updateCamInstruction(count)
-    local camCount = ("%s / %s"):format(count, #Config.PoliceStation.cameras.views)
+local function updateCamInstruction(count, station)
+    local camCount = ("%s / %s"):format(count, #station.cameras.views)
 
     lib.showTextUI(locale("camera_instructions"):format(camCount), {
         position = 'right-center',
@@ -41,21 +41,21 @@ local function updateCamInstruction(count)
 end
 
 
-local function switchCamera(nextCamera)
+local function switchCamera(nextCamera, station)
     currentRotCam = 0
-    if nextCamera > #Config.PoliceStation.cameras.views then
+    if nextCamera > #station.cameras.views then
         nextCamera = 1
     elseif nextCamera < 1 then
-        nextCamera = #Config.PoliceStation.cameras.views
+        nextCamera = #station.cameras.views
     end
 
-    SetCamCoord(camera, Config.PoliceStation.cameras.views[nextCamera].pos)
-    SetCamRot(camera, Config.PoliceStation.cameras.views[nextCamera].rot)
+    SetCamCoord(camera, station.cameras.views[nextCamera].pos)
+    SetCamRot(camera, station.cameras.views[nextCamera].rot)
 
     return nextCamera
 end
 
-local function startLoop()
+local function startLoop(station)
     while viewingCam do
         FreezeEntityPosition(cache.ped, true)
         if IsControlPressed(0, 9) or IsControlPressed(0, 34) then
@@ -77,8 +77,8 @@ local function startLoop()
         end
 
         if IsControlJustPressed(0, 38) or IsControlJustPressed(0, 44) then
-            currentCamera = switchCamera(currentCamera + (IsControlJustPressed(0, 38) and 1 or -1))
-            updateCamInstruction(currentCamera)
+            currentCamera = switchCamera(currentCamera + (IsControlJustPressed(0, 38) and 1 or -1), station)
+            updateCamInstruction(currentCamera, station)
         end
 
         if IsControlJustPressed(0, 177) then
@@ -99,15 +99,15 @@ local function startLoop()
     FreezeEntityPosition(cache.ped, false)
 end
 
-local function viewCamera()
+local function viewCamera(station)
     DoScreenFadeOut(800)
     while not IsScreenFadedOut() do Wait(0) end
     DoScreenFadeIn(800)
 
     RenderScriptCams(false, false, 1, false, false)
 
-    camPos = Config.PoliceStation.cameras.views[currentCamera].pos
-    camRot = Config.PoliceStation.cameras.views[currentCamera].rot
+    camPos = station.cameras.views[currentCamera].pos
+    camRot = station.cameras.views[currentCamera].rot
 
     camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos, camRot, 100.0, true, 2)
     RenderScriptCams(true, true, 1, true, true)
@@ -116,26 +116,27 @@ local function viewCamera()
     SetTimecycleModifier("scanline_cam_cheap")
     SetTimecycleModifierStrength(2.0)
 
-    local playerPed = cache.ped
-    updateCamInstruction(currentCamera)
+    updateCamInstruction(currentCamera, station)
     viewingCam = true
-    startLoop()
+    startLoop(station)
 end
 
-exports.ox_target:addBoxZone({
-    coords = Config.PoliceStation.cameras.pos,
-    size = vector3(2.0, 2.0, 2.0),
-    drawSprite = true,
-    groups = Config.PoliceJobName,
-    options = {
-        {
-            name = "view_cameras",
-            icon = 'fa-solid fa-road',
-            label = locale("view_cameras_label"),
-            groups = Config.PoliceJobName,
-            onSelect = function(data)
-                viewCamera()
-            end
+for index, station in pairs(Config.PoliceStations) do
+    exports.ox_target:addBoxZone({
+        coords = station.cameras.pos,
+        size = vector3(2.0, 2.0, 2.0),
+        drawSprite = true,
+        groups = station.jobs,
+        options = {
+            {
+                name = "view_cameras",
+                icon = 'fa-solid fa-road',
+                label = locale("view_cameras_label"),
+                groups = station.jobs,
+                onSelect = function(data)
+                    viewCamera(station)
+                end
+            }
         }
-    }
-})
+    })
+end

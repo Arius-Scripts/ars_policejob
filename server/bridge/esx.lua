@@ -7,8 +7,16 @@ function removeAccountMoney(target, account, amount)
     xPlayer.removeAccountMoney(account, amount)
 end
 
-function isPoliceOfficer(target)
+function hasJob(target, jobs)
     local xPlayer = ESX.GetPlayerFromId(target)
 
-    return xPlayer.job.name == Config.PoliceJobName
+    if type(jobs) == "table" then
+        for index, jobName in pairs(jobs) do
+            if xPlayer.job.name == jobName then return true end
+        end
+    else
+        return xPlayer.job.name == jobs
+    end
+
+    return false
 end

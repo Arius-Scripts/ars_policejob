@@ -1,5 +1,5 @@
 RegisterNetEvent('ars_policejob:drag', function(target)
-    if not isPoliceOfficer(source) or not source or source < 1 then return end
+    if not hasJob(source, Config.Interactions.jobs) or not source or source < 1 then return end
 
     local sourcePed = GetPlayerPed(source)
     local targetPed = GetPlayerPed(target)

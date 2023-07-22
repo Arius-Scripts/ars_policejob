@@ -1,5 +1,5 @@
 RegisterNetEvent('ars_policejob:handcuff', function(data)
-	if not isPoliceOfficer(source) or not source or source < 1 then return end
+	if not hasJob(source, Config.Interactions.jobs) or not source or source < 1 then return end
 
 	local sourcePed = GetPlayerPed(source)
 	local targetPed = GetPlayerPed(data.targetServerId)
@@ -13,7 +13,7 @@ RegisterNetEvent('ars_policejob:handcuff', function(data)
 end)
 
 RegisterNetEvent('ars_policejob:uncuff', function(data)
-	if not isPoliceOfficer(source) then return end
+	if not hasJob(source, Config.Interactions.jobs) then return end
 
 	local sourcePed = GetPlayerPed(source)
 	local targetPed = GetPlayerPed(data.targetServerId)

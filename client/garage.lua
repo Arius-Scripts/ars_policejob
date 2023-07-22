@@ -59,7 +59,7 @@ end
 
 
 local function depositVehicle(data)
-    if isPoliceOfficer() then
+    if hasJob(data.jobs) then
         local playerPed = cache.ped
         local playerVehicle = cache.vehicle
         if playerVehicle and GetPedInVehicleSeat(playerVehicle, -1) ~= 0 then
@@ -105,7 +105,7 @@ local function depositVehicle(data)
     end
 end
 
-function initGarage(data)
+function initGarage(data, jobs)
     for index, garage in pairs(data) do
         local ped = utils.createPed(garage.model, garage.pedPos)
 
@@ -115,7 +115,7 @@ function initGarage(data)
                 label = locale('garage_interact_label'),
                 icon = 'fa-solid fa-car',
                 distance = 3,
-                groups = Config.PoliceJobName,
+                groups = jobs,
                 canInteract = function(entity, distance, coords, name, bone)
                     return not IsEntityDead(entity)
                 end,
@@ -131,7 +131,7 @@ function initGarage(data)
             coords = garage.deposit,
             distance = 5,
             onEnter = function(self)
-                if cache.vehicle and isPoliceOfficer() then
+                if cache.vehicle and hasJob(jobs) then
                     lib.showTextUI(locale('deposit_vehicle'))
                 end
             end,
@@ -141,6 +141,7 @@ function initGarage(data)
             nearby = function(self)
                 self.model = garage.model
                 self.driverSpawnCoords = garage.driverSpawnCoords
+                self.jobs = jobs
                 depositVehicle(self)
             end
 

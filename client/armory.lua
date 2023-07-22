@@ -123,7 +123,7 @@ function initArmory(data)
             name = 'armory' .. ped,
             label = locale('armory_interact_label'),
             icon = 'fa-solid fa-road',
-            groups = Config.PoliceJobName,
+            groups = data.jobs,
             canInteract = function(entity, distance, coords, name, bone)
                 if IsEntityPlayingAnim(entity, 'mp_cop_armoury', 'pistol_on_counter_cop', 3) or IsEntityPlayingAnim(entity, 'mp_cop_armoury', 'rifle_on_counter_cop', 3) then
                     return false
@@ -140,11 +140,8 @@ function initArmory(data)
             name = 'armory_storage' .. ped,
             label = locale('armory_interact_storage_label'),
             icon = 'fa-solid fa-road',
-            groups = {
-                [Config.PoliceJobName] = data.storage.minGradeAccess
-            },
             canInteract = function(entity, distance, coords, name, bone)
-                return data.require_storage
+                return data.require_storage and hasJob(data.jobs) and getPlayerJobGrade() >= data.storage.minGradeAccess
             end,
             onSelect = function(entity)
                 exports.ox_inventory:openInventory('stash', data.storage.stashId)

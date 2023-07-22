@@ -95,8 +95,16 @@ function getPlayerJobGrade()
     return jobGrade
 end
 
-function isPoliceOfficer()
+function hasJob(jobs)
     local playerData = ESX.GetPlayerData()
 
-    return playerData.job.name == Config.PoliceJobName
+    if type(jobs) == "table" then
+        for index, jobName in pairs(jobs) do
+            if playerData.job.name == jobName then return true end
+        end
+    else
+        return playerData.job.name == jobs
+    end
+
+    return false
 end
