@@ -69,7 +69,7 @@ local function getEquipment(data)
                     end
 
                     ClearPedTasks(policePed)
-                    TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, itemToGive - playerItem, true)
+                    TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, itemToGive - playerItem, true, data.jobs)
                     DeleteEntity(placedObject)
                 else
                     utils.showNotification(equipmentItem.label .. ' ' .. locale('already_have_item'))
@@ -107,7 +107,7 @@ local function getEquipment(data)
                 end
 
                 ClearPedTasks(policePed)
-                TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, equipmentItem.quantity - playerItem, false)
+                TriggerServerEvent('ars_policejob:giveItemToPlayer', data.storage.stashId, equipmentItem.item, equipmentItem.quantity - playerItem, false, data.jobs)
                 DeleteEntity(placedObject)
             else
                 utils.showNotification(equipmentItem.label .. ' ' .. locale('already_have_item'))

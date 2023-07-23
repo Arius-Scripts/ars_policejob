@@ -23,8 +23,8 @@ lib.callback.register('ars_policejob:getItemCount', function(source, stash, item
     return items
 end)
 
-RegisterNetEvent('ars_policejob:giveItemToPlayer', function(stash, item, quantity, storage)
-    if not hasJob(source) or not source or source < 1 then return end
+RegisterNetEvent('ars_policejob:giveItemToPlayer', function(stash, item, quantity, storage, jobs)
+    if not hasJob(source, jobs) or not source or source < 1 then return end
 
     exports.ox_inventory:AddItem(source, item, quantity)
 
@@ -34,7 +34,7 @@ RegisterNetEvent('ars_policejob:giveItemToPlayer', function(stash, item, quantit
 end)
 
 RegisterNetEvent('ars_policejob:activateBlip', function(data)
-    if not hasJob(source) or not source or source < 1 then return end
+    if not hasJob(source, Config.Interactions.jobs) or not source or source < 1 then return end
 
     TriggerClientEvent('ars_policejob:activateBlip', -1, data)
 end)
