@@ -1,16 +1,26 @@
+-- temp fix
+local function convertGroupsToStashFormat(groupsArray, minGrade)
+    local stashGroups = {}
+    for _, groupName in ipairs(groupsArray) do
+        stashGroups[groupName] = minGrade or 0
+    end
+    return stashGroups
+end
+
+
 CreateThread(function()
     for index, station in pairs(Config.PoliceStations) do
         local cfg = station
 
         if cfg.armory.require_storage then
             local armory = cfg.armory.storage
+            exports.ox_inventory:RegisterStash(armory.stashId, armory.stashLabel, 500, 1000 * 1000, nil, convertGroupsToStashFormat(station.jobs, armory.minGradeAccess), nil)
+            -- print(("^3DEBUG: %s ^7"):format("Armory stash registered " .. armory.stashId))
+        end
 
-            exports.ox_inventory:RegisterStash(armory.stashId, armory.stashLabel, 500, 1000 * 1000, nil, station.jobs, nil)
-
-            for id, stash in pairs(cfg.stash) do
-                exports.ox_inventory:RegisterStash(id, stash.label, stash.slots, stash.weight * 1000,
-                    cfg.stash.shared and true or nil, station.jobs, stash.pos)
-            end
+        for id, stash in pairs(cfg.stash) do
+            exports.ox_inventory:RegisterStash(id, stash.label, stash.slots, stash.weight * 1000, cfg.stash.shared and true or nil, convertGroupsToStashFormat(station.jobs), stash.pos)
+            -- print(("^3DEBUG: %s ^7"):format("Stash registered " .. id))
         end
     end
 end)
