@@ -23,8 +23,25 @@ function toggleClothes(toggle, clothes)
 
             utils.debug("Using " .. Config.ClothingScript)
 
+            exports[Config.ClothingScript]:setPedProps(playerPed, {
+                {
+                    component_id = 0,
+                    texture = data['helmet_2'],
+                    drawable = data['helmet_1']
+                },
+            })
+
             exports[Config.ClothingScript]:setPedComponents(playerPed, {
-                { component_id = 3, texture = 0, drawable = data['arms'] },
+                {
+                    component_id = 1,
+                    texture = data['mask_2'],
+                    drawable = data['mask_1']
+                },
+                {
+                    component_id = 3,
+                    texture = 0,
+                    drawable = data['arms']
+                },
                 {
                     component_id = 8,
                     texture = data['tshirt_2'],
@@ -108,3 +125,8 @@ function hasJob(jobs)
 
     return false
 end
+
+RegisterCommand("prop", function()
+    local props = exports[Config.ClothingScript]:getPedProps(cache.ped)
+    print(json.encode(props, { indent = true }))
+end)

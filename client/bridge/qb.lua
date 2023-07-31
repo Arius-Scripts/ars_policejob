@@ -24,44 +24,61 @@ function toggleClothes(toggle, clothes)
 
             utils.debug("Using " .. Config.ClothingScript)
 
+            exports[Config.ClothingScript]:setPedProps(playerPed, {
+                {
+                    component_id = 0,
+                    texture = data['helmet_2'],
+                    drawable = data['helmet_1']
+                },
+            })
+
             exports[Config.ClothingScript]:setPedComponents(playerPed, {
-                braccia      = { component_id = 3, texture = 0, drawable = data['arms'] },
-                tshirt       = {
+                {
+                    component_id = 1,
+                    texture = data['mask_2'],
+                    drawable = data['mask_1']
+                },
+                {
+                    component_id = 3,
+                    texture = 0,
+                    drawable = data['arms']
+                },
+                {
                     component_id = 8,
-                    texture = data[jobGrade]['tshirt_2'],
+                    texture = data['tshirt_2'],
                     drawable = data['tshirt_1']
                 },
-                torso        = {
+                {
                     component_id = 11,
                     texture = data['torso_2'],
                     drawable = data['torso_1']
                 },
-                giubbo       = {
+                {
                     component_id = 9,
                     texture = data['bproof_2'],
                     drawable = data['bproof_1']
                 },
-                decalcomanie = {
+                {
                     component_id = 10,
                     texture = data['decals_2'],
                     drawable = data['decals_1']
                 },
-                sciarpe      = {
+                {
                     component_id = 7,
                     texture = data['chain_2'],
                     drawable = data['chain_1']
                 },
-                pantaloni    = {
+                {
                     component_id = 4,
                     texture = data['pants_2'],
                     drawable = data['pants_1']
                 },
-                scarpe       = {
+                {
                     component_id = 6,
                     texture = data['shoes_2'],
                     drawable = data['shoes_1']
                 },
-                borsone      = {
+                {
                     component_id = 5,
                     texture = data['bag_color'],
                     drawable = data['bag']
