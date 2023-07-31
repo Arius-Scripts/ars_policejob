@@ -28,8 +28,7 @@ local function openCarList(garage)
             table.insert(vehicles, {
                 title = v.label,
                 onSelect = function(data)
-                    local isPosOccupied = IsPositionOccupied(garage.spawn.x, garage.spawn.y, garage.spawn.z, 10, false,
-                        true, true, false, false, 0, false)
+                    local isPosOccupied = IsPositionOccupied(garage.spawn.x, garage.spawn.y, garage.spawn.z, 10, false, true, true, false, false, 0, false)
 
                     if isPosOccupied then return end
 
@@ -37,8 +36,7 @@ local function openCarList(garage)
 
                     if not model then return end
 
-                    local vehicle = CreateVehicle(model, garage.spawn.x, garage.spawn.y, garage.spawn.z, garage.spawn.w,
-                        true, false)
+                    local vehicle = CreateVehicle(model, garage.spawn.x, garage.spawn.y, garage.spawn.z, garage.spawn.w, true, false)
                     SetModelAsNoLongerNeeded(model)
                     NetworkFadeInEntity(vehicle, 1)
                     lib.setVehicleProperties(vehicle, v.modifications)
