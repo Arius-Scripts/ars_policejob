@@ -32,7 +32,7 @@ local function openCarList(garage)
 
                     if isPosOccupied then return end
 
-                    local model = lib.requestModel(v.spawn_code, 10)
+                    local model = lib.requestModel(v.spawn_code)
 
                     if not model then return end
 
