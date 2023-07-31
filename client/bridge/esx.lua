@@ -71,7 +71,7 @@ function toggleClothes(toggle, clothes)
             ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
                 local gender = skin.sex
 
-                if gender == 1 then
+                if gender == 0 then
                     TriggerEvent('skinchanger:loadClothes', skin, clothes.male[jobGrade] or clothes.male[1])
                 else
                     TriggerEvent('skinchanger:loadClothes', skin, clothes.female[jobGrade] or clothes.female[1])

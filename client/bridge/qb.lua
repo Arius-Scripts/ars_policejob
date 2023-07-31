@@ -70,7 +70,7 @@ function toggleClothes(toggle, clothes)
         elseif Config.ClothingScript == 'core' then
             utils.debug("Using " .. Config.ClothingScript)
 
-            if gender == 1 then
+            if gender == 0 then
                 TriggerEvent('qb-clothing:client:loadOutfit', { outfitData = clothes.male[jobGrade] })
             else
                 TriggerEvent('qb-clothing:client:loadOutfit', { outfitData = clothes.female[jobGrade] })
