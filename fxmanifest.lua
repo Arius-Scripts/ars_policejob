@@ -23,6 +23,7 @@ client_scripts {
 	'client/interdict_area.lua',
 	'client/stashes.lua',
 	'client/cameras.lua',
+	'client/bossmenu.lua',
 
 	'client/interaction/interaction.lua',
 	'client/interaction/drag.lua',

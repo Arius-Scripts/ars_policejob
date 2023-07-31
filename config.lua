@@ -32,6 +32,10 @@ Config.PoliceVehicles = { -- vehicles that have access to the props (cones and e
 Config.PoliceStations = {
 	["station_1"] = {
 		jobs = { "police", "mechanic" },
+		bossmenu = {
+			pos = vector3(447.08, -974.44, 30.68),
+			min_grade = 4
+		},
 		zone = {
 			pos = vec3(448.0, -997.0, 44.0),
 			size = vec3(96.0, 79.0, 65.0),

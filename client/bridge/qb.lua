@@ -120,3 +120,7 @@ function hasJob(jobs)
 
     return false
 end
+
+function openBossMenu(job)
+    TriggerEvent("qb-bossmenu:client:OpenMenu")
+end

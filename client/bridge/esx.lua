@@ -125,3 +125,7 @@ function hasJob(jobs)
 
     return false
 end
+
+function openBossMenu(job)
+    TriggerEvent('esx_society:openBossMenu', job, function(data, menu) end, { wash = false })
+end
