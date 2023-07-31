@@ -7,7 +7,7 @@ for index, station in pairs(Config.PoliceStations) do
     for id, stash in pairs(station.stash) do
         stashes[stash] = lib.points.new({
             coords = stash.pos,
-            distance = 3,
+            distance = 1,
             onEnter = function(self)
                 if hasJob(station.jobs) then
                     lib.showTextUI(locale('open_stash_label'))
