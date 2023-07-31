@@ -125,8 +125,3 @@ function hasJob(jobs)
 
     return false
 end
-
-RegisterCommand("prop", function()
-    local props = exports[Config.ClothingScript]:getPedProps(cache.ped)
-    print(json.encode(props, { indent = true }))
-end)
