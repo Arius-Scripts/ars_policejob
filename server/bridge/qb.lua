@@ -20,3 +20,9 @@ function hasJob(target, jobs)
 
     return false
 end
+
+function playerJob(target)
+    local xPlayer = QBCore.Functions.GetPlayer(target)
+
+    return xPlayer.PlayerData.job.name
+end

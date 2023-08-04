@@ -20,3 +20,9 @@ function hasJob(target, jobs)
 
     return false
 end
+
+function playerJob(target)
+    local xPlayer = ESX.GetPlayerFromId(target)
+
+    return xPlayer.job.name
+end
