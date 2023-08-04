@@ -46,7 +46,7 @@ local function playerInteractions()
 				utils.debug(("^1search_suspect ^3 Is Target Fragile: %s"):format(isEntityFragile(entity)))
 				utils.debug(("^1search_suspect ^3 Are you armed: %s"):format(IsPedArmed(cache.ped, 6)))
 
-				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6)
+				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6) and player.onDuty
 			end,
 			onSelect = function(data)
 				exports.ox_inventory:openNearbyInventory()

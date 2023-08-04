@@ -9,6 +9,7 @@ Config.PrisonSystem = 'pickle_prisons'        -- 'pickle_prisons', 'esx-qalle-ja
 Config.ItemCuffs = "handcuffs"                -- name of the item cuffs
 Config.RestrictAreaCommand = "restrictarea"
 Config.CanBreakCuffs = true                   -- to use this function follow the installation
+Config.AccessToMenu = { "police" }
 
 Config.Interactions = {
 	enable = true,
@@ -36,6 +37,7 @@ Config.PoliceStations = {
 			pos = vector3(447.08, -974.44, 30.68),
 			min_grade = 4
 		},
+		duty = vector3(440.92, -980.76, 30.72),
 		zone = {
 			pos = vec3(448.0, -997.0, 44.0),
 			size = vec3(96.0, 79.0, 65.0),

@@ -24,6 +24,7 @@ client_scripts {
 	'client/stashes.lua',
 	'client/cameras.lua',
 	'client/bossmenu.lua',
+	'client/duty.lua',
 
 	'client/interaction/interaction.lua',
 	'client/interaction/drag.lua',
@@ -33,11 +34,16 @@ client_scripts {
 	'client/interaction/props.lua',
 	'client/items/*.lua',
 
+	'client/menu/main.lua',
+
 	'client/client.lua',
+
+
 }
 
 server_scripts {
 	'server/server.lua',
+	'server/menu/main.lua',
 	'server/interaction/*.lua',
 	'server/bridge/esx.lua',
 	'server/bridge/qb.lua',

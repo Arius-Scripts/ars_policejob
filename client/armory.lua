@@ -129,7 +129,7 @@ function initArmory(data)
                     return false
                 end
 
-                return true
+                return player.onDuty
             end,
             onSelect = function(entity)
                 data.entity = entity.entity
@@ -141,7 +141,7 @@ function initArmory(data)
             label = locale('armory_interact_storage_label'),
             icon = 'fa-solid fa-road',
             canInteract = function(entity, distance, coords, name, bone)
-                return data.require_storage and hasJob(data.jobs) and getPlayerJobGrade() >= data.storage.minGradeAccess
+                return data.require_storage and hasJob(data.jobs) and getPlayerJobGrade() >= data.storage.minGradeAccess and player.onDuty
             end,
             onSelect = function(entity)
                 exports.ox_inventory:openInventory('stash', data.storage.stashId)
