@@ -16,6 +16,8 @@ client_scripts {
 	'client/bridge/qb.lua',
 
 	'client/functions/utils.lua',
+	'client/menu/main.lua',
+
 
 	'client/clothing.lua',
 	'client/armory.lua',
@@ -33,8 +35,6 @@ client_scripts {
 	'client/interaction/in_out_vehicle.lua',
 	'client/interaction/props.lua',
 	'client/items/*.lua',
-
-	'client/menu/main.lua',
 
 	'client/client.lua',
 
