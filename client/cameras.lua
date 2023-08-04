@@ -124,7 +124,7 @@ end
 for index, station in pairs(Config.PoliceStations) do
     exports.ox_target:addBoxZone({
         coords = station.cameras.pos,
-        size = vector3(2.0, 2.0, 2.0),
+        size = vector3(1.0, 1.0, 1.0),
         drawSprite = true,
         groups = station.jobs,
         options = {
