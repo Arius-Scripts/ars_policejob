@@ -40,4 +40,20 @@ function utils.debug(msg)
     end
 end
 
+function utils.getCurrentLocation()
+    local playerPed = cache.coords and cache.coords or cache.ped
+    local playerCoords = cache.coords or GetEntityCoords(playerPed)
+    local currentStreetHash, intersectStreetHash = GetStreetNameAtCoord(playerCoords.x, playerCoords.y, playerCoords.z)
+    local currentStreetName = GetStreetNameFromHashKey(currentStreetHash)
+    local currentArea = GetLabelText(tostring(GetNameOfZone(playerCoords.x, playerCoords.y, playerCoords.z)))
+    local currentLocation = currentArea
+    if not zone then zone = "UNKNOWN" end
+
+    if currentStreetName and currentStreetName ~= "" then
+        currentLocation = currentLocation .. ", " .. currentArea
+    end
+
+    return currentLocation
+end
+
 RegisterNetEvent('ars_policejob:showNotification', utils.showNotification)
