@@ -1,9 +1,18 @@
-local CreatePed = CreatePed
-local FreezeEntityPosition = FreezeEntityPosition
-local SetEntityInvincible = SetEntityInvincible
+local CreatePed                       = CreatePed
+local FreezeEntityPosition            = FreezeEntityPosition
+local SetEntityInvincible             = SetEntityInvincible
 local SetBlockingOfNonTemporaryEvents = SetBlockingOfNonTemporaryEvents
-local SetModelAsNoLongerNeeded = SetModelAsNoLongerNeeded
-local RegisterNetEvent = RegisterNetEvent
+local SetModelAsNoLongerNeeded        = SetModelAsNoLongerNeeded
+local RegisterNetEvent                = RegisterNetEvent
+local AddBlipForCoord                 = AddBlipForCoord
+local SetBlipSprite                   = SetBlipSprite
+local SetBlipDisplay                  = SetBlipDisplay
+local SetBlipScale                    = SetBlipScale
+local SetBlipColour                   = SetBlipColour
+local SetBlipAsShortRange             = SetBlipAsShortRange
+local BeginTextCommandSetBlipName     = BeginTextCommandSetBlipName
+local AddTextComponentString          = AddTextComponentString
+local EndTextCommandSetBlipName       = EndTextCommandSetBlipName
 
 
 utils = {}

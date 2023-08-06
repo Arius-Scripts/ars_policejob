@@ -1,33 +1,16 @@
-local AddBlipForCoord             = AddBlipForCoord
-local SetBlipSprite               = SetBlipSprite
-local SetBlipDisplay              = SetBlipDisplay
-local SetBlipScale                = SetBlipScale
-local SetBlipColour               = SetBlipColour
-local SetBlipAsShortRange         = SetBlipAsShortRange
-local BeginTextCommandSetBlipName = BeginTextCommandSetBlipName
-local AddTextComponentString      = AddTextComponentString
-local EndTextCommandSetBlipName   = EndTextCommandSetBlipName
-local DeletePed                   = DeletePed
-station                           = nil
-player                            = {}
-local stations                    = {}
+local DeletePed = DeletePed
+station         = nil
+player          = {}
+local stations  = {}
 
 
 for index, station in pairs(Config.PoliceStations) do
-    local cfg  = station
+    local cfg = station
 
     -- Creating blip
-    local blip = AddBlipForCoord(cfg.blip.pos)
-    SetBlipSprite(blip, cfg.blip.type)
-    SetBlipDisplay(blip, 6)
-    SetBlipScale(blip, cfg.blip.scale)
-    SetBlipColour(blip, cfg.blip.color)
-    SetBlipAsShortRange(blip, true)
-
-    BeginTextCommandSetBlipName('STRING')
-    AddTextComponentString(cfg.blip.name)
-    EndTextCommandSetBlipName(blip)
-
+    if cfg.blip.enable then
+        utils.createBlip(cfg.blip)
+    end
 
     -- Zones
     stations[#stations + 1] = lib.zones.box({
