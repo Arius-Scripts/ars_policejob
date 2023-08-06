@@ -9,6 +9,7 @@ local AddTextComponentString      = AddTextComponentString
 local EndTextCommandSetBlipName   = EndTextCommandSetBlipName
 local DeletePed                   = DeletePed
 station                           = nil
+player                            = {}
 local stations                    = {}
 
 
