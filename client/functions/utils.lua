@@ -56,4 +56,18 @@ function utils.getCurrentLocation()
     return currentLocation
 end
 
+function utils.createBlip(data)
+    local blip = AddBlipForCoord(data.pos)
+    SetBlipSprite(blip, data.type)
+    SetBlipDisplay(blip, 6)
+    SetBlipScale(blip, data.scale)
+    SetBlipColour(blip, data.color)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(data.name)
+    EndTextCommandSetBlipName(blip)
+
+    return blip
+end
+
 RegisterNetEvent('ars_policejob:showNotification', utils.showNotification)
