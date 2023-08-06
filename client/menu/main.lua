@@ -1,13 +1,25 @@
-player = {}
 player.adam = nil
 player.status = nil
 player.location = nil
+player.receiveNotifications = true
+player.frequencyToJoin = 0
 
-local receiveNotifications = true
+function createEmergencyBlip()
+    local data = {
+        name = 'Help',
+        type = 161,
+        scale = 1.2,
+        color = 1,
+        pos = cache.coords or GetEntityCoords(playerPed)
+    }
+    local blip = utils.createBlip(data)
 
+    Wait(6 * 1000)
+    RemoveBlip(blip)
+end
 
 local function sendNotification(adam)
-    if not receiveNotifications then return end
+    if not player.receiveNotifications or not player.onDuty then return end
     PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 
     local message = ("\n🚓 Adam %s  \n🔢 Status: %s  \n🗺️ Location: %s"):format(adam.adam, adam.status, adam.location)
@@ -31,109 +43,26 @@ local function sendNotification(adam)
     })
 end
 
-local function getCurrentLocation()
-    local playerPed = cache.coords and cache.coords or cache.ped
-    local playerCoords = cache.coords or GetEntityCoords(playerPed)
-    local currentStreetHash, intersectStreetHash = GetStreetNameAtCoord(playerCoords.x, playerCoords.y, playerCoords.z)
-    local currentStreetName = GetStreetNameFromHashKey(currentStreetHash)
-    local currentArea = GetLabelText(tostring(GetNameOfZone(playerCoords.x, playerCoords.y, playerCoords.z)))
-    local currentLocation = currentArea
-    if not zone then zone = "UNKNOWN" end
+function openPoliceMenu()
+    if not player.onDuty then return utils.showNotification(locale("your_off_duty")) end
 
-    if currentStreetName and currentStreetName ~= "" then
-        currentLocation = currentLocation .. ", " .. currentArea
-    end
-
-    return currentLocation
-end
-
-local function createEmergencyBlip()
-    local blipId = AddBlipForCoord(cache.coords)
-    SetBlipSprite(blipId, 161)
-    SetBlipScale(blipId, 1.2)
-    SetBlipColour(blipId, color)
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString('Richiedi supporto')
-    EndTextCommandSetBlipName(blipId)
-    Wait(6 * 1000)
-    RemoveBlip(blipId)
-end
-
-
-
-lib.registerMenu({
-    id = 'police_status_menu',
-    title = '🚨 Set Your Adam Status 🚨',
-    position = 'top-right',
-    options = {
-        { label = 'Patrolling',                     description = 'Status Code: 10-8',  args = { status = "10-8", }, icon = "fas fa-user-clock" },
-        { label = 'On Scene',                       description = 'Status Code: 10-97', args = { status = "10-97" }, icon = "fas fa-map-marked-alt" },
-        { label = 'Busy',                           description = 'Status Code: 10-6',  args = { status = "10-6" },  icon = "fas fa-user-clock" },
-        { label = 'Responding',                     description = 'Status Code: 10-8',  args = { status = "10-8" },  icon = "fas fa-user-clock" },
-        { label = 'Pursuit in Progress',            description = 'Status Code: 10-80', args = { status = "10-80" }, icon = "fas fa-car-crash" },
-        { label = 'Needs Backup',                   description = 'Status Code: 11-99', args = { status = "11-99" }, icon = "fas fa-exclamation-triangle" },
-        { label = 'Taking a Break',                 description = 'Status Code: 10-7',  args = { status = "10-7" },  icon = "fas fa-coffee" },
-        { label = 'Accident, Serious Injury',       description = 'Code 11-80',         args = { status = "11-80" }, icon = "fas fa-car-crash" },
-        { label = 'Accident, Minor Injury',         description = 'Code 11-81',         args = { status = "11-81" }, icon = "fas fa-car-crash" },
-        { label = 'Accident, Property Damage Only', description = 'Code 11-82',         args = { status = "11-82" }, icon = "fas fa-car-crash" },
-        { label = 'Needs Medical Assistance',       description = 'Code 11-47',         args = { status = "11-47" }, icon = "fas fa-hospital" },
-        { label = 'Investigating',                  description = 'Status Code: 10-29', args = { status = "10-29" }, icon = "fas fa-search" },
-        { label = 'In Custody',                     description = 'Status Code: 10-15', args = { status = "10-15" }, icon = "fas fa-male" },
-        { label = 'Officer Down',                   description = 'Code 11-45',         args = { status = "11-45" }, icon = "fas fa-skull-crossbones" },
-        { label = 'Emergency Response',             description = 'Status Code: 10-3',  args = { status = "10-3" },  icon = "fas fa-exclamation" },
-    }
-}, function(selected, scrollIndex, args)
-    player.status = args.status
-    player.location = getCurrentLocation()
-
-    TriggerServerEvent("ars_policejob:sendStatusNotification", { adam = player.adam or "N/A", status = player.status, location = player.location })
-
-    if player.status == "11-99" then
-        createEmergencyBlip()
-    end
-
-    utils.showNotification(locale("adam_status_changed"))
-end)
-
-local function openPoliceMenu()
     if hasJob(Config.AccessToMenu) then
-        lib.registerMenu({
-            id = 'police_main_menu',
-            title = '👮‍♂️ Police Menu 👮‍♂️',
-            position = 'top-right',
+        local jobGrade = getPlayerJobGrade()
+        if jobGrade > 2 then
+            lib.setMenuOptions('police_main_menu', { label = 'Call meeting', icon = 'radio' }, 2)
+        end
 
-            options = {
-                { label = 'Set Your Adam',                description = player.adam and ('Current adam %s'):format(player.adam) or 'Set your adam!',                 icon = "fas fa-user" },
-                { label = 'Set Your Adam Status',         description = player.status and ('Current Status %s'):format(player.status) or 'Set your current status!', icon = "fas fa-comment" },
-                { label = 'Receive status notifications', description = 'enable if to receive other police officer status notifications',                            icon = "fas fa-info",   checked = receiveNotifications },
-
-            },
-            onCheck = function(selected, checked, args)
-                if selected == 3 then
-                    receiveNotifications = checked
-                end
-            end,
-        }, function(selected, scrollIndex, args)
-            if selected == 1 then
-                local input = lib.inputDialog('🚓 LSPD', {
-                    { type = 'number', label = 'Enter Your Adam Number', description = 'Enter the number of your assigned adam', icon = 'hashtag' },
-                })
-
-                if not input then return end
-                if not input[1] then return end
-
-                player.adam = input[1]
-                utils.showNotification(("You are now in adam %s"):format(player.adam))
-                openPoliceMenu()
-            elseif selected == 2 then
-                lib.showMenu('police_status_menu')
-            end
-        end)
-
-        lib.showMenu('police_main_menu')
+        lib.showMenu("police_main_menu")
     end
 end
 
+function openAdamMenu()
+    lib.setMenuOptions('adam_menu', { label = 'Set Your Adam', description = player.adam and ('Current adam %s'):format(player.adam) or 'Set your adam!', icon = "fas fa-user" }, 1)
+    lib.setMenuOptions('adam_menu', { label = 'Set Your Adam Status', description = player.status and ('Current Status %s'):format(player.status) or 'Set your current status!', icon = "fas fa-comment" }, 2)
+    lib.setMenuOptions('adam_menu', { label = 'Receive status notifications', description = 'enable if to receive other police officer status notifications', icon = "fas fa-info", checked = player.receiveNotifications }, 3)
+
+    lib.showMenu('adam_menu')
+end
 
 RegisterCommand('testmenu', function()
     openPoliceMenu()
@@ -146,5 +75,34 @@ RegisterNetEvent("ars_policejob:sendStatusNotification", function(data)
             status = data.status,
             location = data.location
         })
+    end
+end)
+
+RegisterNetEvent("ars_policejob:callMeeting", function(data)
+    if hasJob(Config.AccessToMenu) then
+        lib.setMenuOptions('police_meeting_menu', { label = string.len(data.reason) < 50 and ("Meeting Reason: %s"):format(data.reason) or "Read the reason under", description = data.reason, icon = 'info' }, 1)
+        lib.setMenuOptions('police_meeting_menu', { label = ("Meeting in Fz: %s"):format(data.radio), description = ("Join frequncy %s"):format(data.radio), icon = 'radio' }, 2)
+        player.frequencyToJoin = data.radio
+
+        lib.notify({
+            title = '📢 LSPD NOTIFICATION 📢',
+            description = "A high grade called a meeting Press [U] for more info",
+            position = 'top-center',
+            duration = 5000,
+        })
+
+        local startTime = GetGameTimer()
+        local timeout = 1 * 60000
+        while true do
+            if IsControlJustReleased(0, 303) then
+                lib.showMenu("police_meeting_menu")
+                break
+            end
+
+            if GetGameTimer() - startTime >= timeout then
+                break
+            end
+            Wait(1)
+        end
     end
 end)

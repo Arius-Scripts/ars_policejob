@@ -12,11 +12,14 @@ version '1.0.3'
 --#--
 
 client_scripts {
+	'client/functions/utils.lua',
+	'client/client.lua',
+
 	'client/bridge/esx.lua',
 	'client/bridge/qb.lua',
 
-	'client/functions/utils.lua',
 	'client/menu/main.lua',
+	'client/menu/menus.lua',
 
 
 	'client/clothing.lua',
@@ -36,7 +39,7 @@ client_scripts {
 	'client/interaction/props.lua',
 	'client/items/*.lua',
 
-	'client/client.lua',
+
 
 
 }
