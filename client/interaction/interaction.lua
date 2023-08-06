@@ -1,4 +1,3 @@
-player              = {}
 player.interactions = {}
 
 if not Config.Interactions.enable then return end
@@ -211,8 +210,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
-				not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_roadcone02a')
@@ -225,8 +223,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
-				not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_barrier_work05')
@@ -239,8 +236,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and
-				not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
 		end,
 		onSelect = function(data)
 			player.spawnProp('p_ld_stinger_s')
