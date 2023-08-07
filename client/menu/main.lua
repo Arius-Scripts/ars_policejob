@@ -48,10 +48,8 @@ function openPoliceMenu()
 
     if hasJob(Config.AccessToMenu) then
         local jobGrade = getPlayerJobGrade()
-        if jobGrade > 2 then
-            lib.setMenuOptions('police_main_menu', { label = 'Call meeting', icon = 'radio' }, 2)
-        end
 
+        lib.setMenuOptions('police_main_menu', jobGrade >= 2 and { label = 'Call meeting', icon = 'radio' } or {}, 2)
         lib.showMenu("police_main_menu")
     end
 end
