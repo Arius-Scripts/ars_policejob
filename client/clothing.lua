@@ -69,7 +69,7 @@ function initClothes(data, jobs)
             icon = 'fa-solid fa-road',
             groups = jobs,
             canInteract = function(entity, distance, coords, name, bone)
-                return player.onDuty
+                return player.inDuty()
             end,
             onSelect = function(entity)
                 openClothingMenu(data)

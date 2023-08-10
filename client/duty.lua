@@ -1,5 +1,13 @@
 player.onDuty = false
 
+function player.inDuty()
+    if Config.UseInternalDuty then return player.onDuty end
+
+    return true
+end
+
+if not Config.UseInternalDuty then return end
+
 for index, station in pairs(Config.PoliceStations) do
     exports.ox_target:addBoxZone({
         coords = station.duty,

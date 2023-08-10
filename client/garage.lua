@@ -115,7 +115,7 @@ function initGarage(data, jobs)
                 distance = 3,
                 groups = jobs,
                 canInteract = function(entity, distance, coords, name, bone)
-                    return not IsEntityDead(entity) and player.onDuty
+                    return not IsEntityDead(entity) and player.inDuty()
                 end,
                 onSelect = function(data)
                     local position, heading = vector3(garage.spawn.x, garage.spawn.y, garage.spawn.z),

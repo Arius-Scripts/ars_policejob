@@ -20,7 +20,7 @@ end
 
 function joinRadio(fz)
     if GetResourceState('saltychat'):find('start') then
-        exports.saltychat:SetRadioChannel(tonumber(fz), true)
+        exports.saltychat:SetRadioChannel(fz, true)
     else
         exports['pma-voice']:setVoiceProperty('radioEnabled', true)
         exports['pma-voice']:setVoiceProperty('micClicks', true)
@@ -29,7 +29,7 @@ function joinRadio(fz)
 end
 
 local function sendNotification(adam)
-    if not player.receiveNotifications or not player.onDuty then return end
+    if not player.receiveNotifications or not player.inDuty() then return end
     PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 
     local message = ("\n🚓 Adam %s  \n🔢 Status: %s  \n🗺️ Location: %s"):format(adam.adam, adam.status, adam.location)
@@ -54,7 +54,9 @@ local function sendNotification(adam)
 end
 
 function openPoliceMenu()
-    if not player.onDuty then return utils.showNotification(locale("your_off_duty")) end
+    -- print(player.inDuty())
+
+    if player.inDuty() == false then return utils.showNotification(locale("your_off_duty")) end
 
     if hasJob(Config.AccessToMenu) then
         local jobGrade = getPlayerJobGrade()
