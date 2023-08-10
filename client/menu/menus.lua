@@ -1,3 +1,5 @@
+local TriggerServerEvent = TriggerServerEvent
+
 -- # Main menu
 lib.registerMenu({
     id = 'police_main_menu',

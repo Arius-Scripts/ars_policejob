@@ -1,3 +1,12 @@
+local GetEntityCoords = GetEntityCoords
+local Wait = Wait
+local RemoveBlip = RemoveBlip
+local GetResourceState = GetResourceState
+local PlaySoundFrontend = PlaySoundFrontend
+local RegisterNetEvent = RegisterNetEvent
+local GetGameTimer = GetGameTimer
+local IsControlJustReleased = IsControlJustReleased
+
 player.adam = nil
 player.status = nil
 player.location = nil
