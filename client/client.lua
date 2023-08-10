@@ -39,7 +39,6 @@ for index, station in pairs(Config.PoliceStations) do
 end
 
 
-
 AddEventHandler('onResourceStop', function(resourceName)
     if GetCurrentResourceName() ~= resourceName then
         return

@@ -34,9 +34,7 @@ lib.registerMenu({
     if selected == 1 then
         lib.showMenu("police_meeting_menu")
     elseif selected == 2 then
-        exports['pma-voice']:setVoiceProperty('radioEnabled', true)
-        exports['pma-voice']:setVoiceProperty('micClicks', true)
-        exports['pma-voice']:setRadioChannel(tonumber(player.frequencyToJoin))
+        joinRadio(player.frequencyToJoin)
     end
 end)
 

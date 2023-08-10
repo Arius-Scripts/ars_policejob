@@ -18,6 +18,16 @@ function createEmergencyBlip()
     RemoveBlip(blip)
 end
 
+function joinRadio(fz)
+    if GetResourceState('saltychat'):find('start') then
+        exports.saltychat:SetRadioChannel(tonumber(fz), true)
+    else
+        exports['pma-voice']:setVoiceProperty('radioEnabled', true)
+        exports['pma-voice']:setVoiceProperty('micClicks', true)
+        exports['pma-voice']:setRadioChannel(tonumber(fz))
+    end
+end
+
 local function sendNotification(adam)
     if not player.receiveNotifications or not player.onDuty then return end
     PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)

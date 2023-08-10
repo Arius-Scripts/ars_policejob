@@ -9,6 +9,7 @@ Config.PrisonSystem = 'pickle_prisons'        -- 'pickle_prisons', 'esx-qalle-ja
 Config.ItemCuffs = "handcuffs"                -- name of the item cuffs
 Config.RestrictAreaCommand = "restrictarea"
 Config.CanBreakCuffs = true                   -- to use this function follow the installation
+Config.UseInternalDuty = true
 Config.AccessToMenu = { "police" }
 
 Config.Interactions = {
