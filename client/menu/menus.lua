@@ -53,6 +53,9 @@ lib.registerMenu({
             player.receiveNotifications = checked
         end
     end,
+    onClose = function(keyPressed)
+        lib.showMenu("police_main_menu")
+    end,
 }, function(selected, scrollIndex, args)
     if selected == 1 then
         local input = lib.inputDialog('🚓 LSPD', {
@@ -91,7 +94,10 @@ lib.registerMenu({
         { label = 'In Custody',                     description = 'Status Code: 10-15', args = { status = "10-15" }, icon = "fas fa-male" },
         { label = 'Officer Down',                   description = 'Code 11-45',         args = { status = "11-45" }, icon = "fas fa-skull-crossbones" },
         { label = 'Emergency Response',             description = 'Status Code: 10-3',  args = { status = "10-3" },  icon = "fas fa-exclamation" },
-    }
+    },
+    onClose = function(keyPressed)
+        lib.showMenu("adam_menu")
+    end,
 }, function(selected, scrollIndex, args)
     if not player.adam then return utils.showNotification(locale("no_adam_set")) end
     player.status = args.status
