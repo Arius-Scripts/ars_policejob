@@ -23,6 +23,8 @@ lib.registerMenu({
         local radio = input[2]
 
         TriggerServerEvent("ars_policejob:callMeeting", { reason = reason, radio = radio })
+    elseif selected == 3 then
+        openDialogMenu()
     end
 end)
 lib.registerMenu({

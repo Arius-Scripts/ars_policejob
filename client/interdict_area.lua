@@ -5,9 +5,8 @@ local SetBlipColour = SetBlipColour
 local SetBlipAlpha = SetBlipAlpha
 local Wait = Wait
 local RemoveBlip = RemoveBlip
-local RegisterCommand = RegisterCommand
 
-local function openDialogMenu()
+function openDialogMenu()
     local input = lib.inputDialog(locale('restrict_area_dialog_title'), {
         {
             type = 'input',
@@ -79,4 +78,4 @@ RegisterNetEvent('ars_policejob:activateBlip', function(data)
     RemoveBlip(blip)
 end)
 
-RegisterCommand(Config.RestrictAreaCommand, openDialogMenu)
+lib.setMenuOptions('police_main_menu', { label = 'Interdict area', icon = 'fa-tower-broadcast' }, 3)
