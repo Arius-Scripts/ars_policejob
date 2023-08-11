@@ -31,6 +31,8 @@ _Experience the ultimate law enforcement roleplay with Arius Policejob 👮. Res
 -   Props like cones accessible from vehicle trunks
 -   Breakable handcuffs with lockpicks
 -   Accessible cameras for surveillance
+-   PoliceMenu with cool options
+-   Internal Duty
 -   Otimized 0.0ms idle
 
 **Download:**
