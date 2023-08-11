@@ -86,5 +86,6 @@
 	"broadcast_alert_label_dsc": "",
 	"broadcast_input_title": "Broadcast",
 	"broadcast_input_reason": "Messaggio",
-	"broadcast_input_reason_desc": "Il messaggio che tutti vedranno"
+	"broadcast_input_reason_desc": "Il messaggio che tutti vedranno",
+	"broadcast_notif_title": "📢 LSPD NOTIFICATION 📢"
 }

@@ -78,10 +78,10 @@ end
 RegisterNetEvent("ars_policejob:broadcastMsg", function(data)
     local reason = data.reason
     lib.notify({
-        title = locale("status_notif_title"),
+        title = locale("broadcast_notif_title"),
         description = reason,
         position = 'bottom-right',
-        duration = 3000,
+        duration = 8000,
         style = {
             backgroundColor = '#1C1C1C',
             color = '#C1C2C5',
