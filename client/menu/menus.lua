@@ -3,20 +3,19 @@ local TriggerServerEvent = TriggerServerEvent
 -- # Main menu
 lib.registerMenu({
     id = 'police_main_menu',
-    title = '👮‍♂️ Police Menu 👮‍♂️',
+    title = locale("police_menu_title"),
     position = 'top-right',
     options = {
-        { label = 'Adam', description = 'Adam settings', icon = "fas fa-car" },
-
+        { label = locale("open_adam_menu_label"), description = locale("open_adam_menu_description"), icon = "fas fa-car" },
     }
 }, function(selected, scrollIndex, args)
     if selected == 1 then
         openAdamMenu()
     elseif selected == 2 then
-        local input = lib.inputDialog('Call Meeting', {
-            { type = 'input',    label = 'Reason',   description = 'Reason for the meeting',             required = true, max = 500 },
-            { type = 'number',   label = 'Radio Fz', description = 'Radio frequency that all will join', required = true, icon = 'hashtag', max = 999 },
-            { type = 'checkbox', label = 'Confirm' },
+        local input = lib.inputDialog(locale("open_meeting_menu_label"), {
+            { type = 'input',    label = locale("meeting_input_reason"), description = locale("meeting_input_reason_desc"), required = true, max = 500 },
+            { type = 'number',   label = locale("meeting_input_radio"),  description = locale("meeting_input_radio_desc"),  required = true, icon = 'hashtag', max = 999 },
+            { type = 'checkbox', label = locale("meeting_input_reason") },
         })
         if not input then return end
         if not input[3] then return end
@@ -31,7 +30,7 @@ lib.registerMenu({
 end)
 lib.registerMenu({
     id = 'police_meeting_menu',
-    title = '👮‍♂️ Meeting Info 👮‍♂️',
+    title = locale("police_meeting_menu_title"),
     position = 'top-right',
     options = {}
 }, function(selected, scrollIndex, args)
@@ -43,12 +42,10 @@ lib.registerMenu({
 end)
 
 
-
-
 -- # Adam menu
 lib.registerMenu({
     id = 'adam_menu',
-    title = '👮‍♂️ Adam Menu 👮‍♂️',
+    title = locale("adam_menu_title"),
     position = 'top-right',
 
     options = {},
@@ -62,15 +59,15 @@ lib.registerMenu({
     end,
 }, function(selected, scrollIndex, args)
     if selected == 1 then
-        local input = lib.inputDialog('🚓 LSPD', {
-            { type = 'number', label = 'Enter Your Adam Number', description = 'Enter the number of your assigned adam', icon = 'hashtag', max = 999 },
+        local input = lib.inputDialog(locale("input_set_adam_title"), {
+            { type = 'number', label = locale("input_enter_adam_num"), description = locale("input_enter_adam_num_desc"), icon = 'hashtag', max = 999 },
         })
 
         if not input then return end
         if not input[1] then return end
 
         player.adam = input[1]
-        utils.showNotification(("You are now in adam %s"):format(player.adam))
+        utils.showNotification(("%s %s"):format(locale("your_in_adam_x"), player.adam))
         openPoliceMenu()
     elseif selected == 2 then
         lib.showMenu('adam_status_menu')
@@ -80,7 +77,7 @@ end)
 -- #Adam status menu
 lib.registerMenu({
     id = 'adam_status_menu',
-    title = '🚨 Set Your Adam Status 🚨',
+    title = locale("adam_status_menu_title"),
     position = 'top-right',
     options = {
         { label = 'Patrolling',                     description = 'Status Code: 10-8',  args = { status = "10-8", }, icon = "fas fa-user-clock" },

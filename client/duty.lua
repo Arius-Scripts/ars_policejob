@@ -48,5 +48,5 @@ for index, station in pairs(Config.PoliceStations) do
 end
 
 exports("onDuty", function()
-    return player.onDuty
+    return player.inDuty()
 end)

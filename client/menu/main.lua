@@ -15,7 +15,7 @@ player.frequencyToJoin = 0
 
 function createEmergencyBlip()
     local data = {
-        name = 'Help',
+        name = locale("emergency_blip_label"),
         type = 161,
         scale = 1.2,
         color = 1,
@@ -41,10 +41,10 @@ local function sendNotification(adam)
     if not player.receiveNotifications or not player.inDuty() then return end
     PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 
-    local message = ("\n🚓 Adam %s  \n🔢 Status: %s  \n🗺️ Location: %s"):format(adam.adam, adam.status, adam.location)
+    local message = ("\n🚓 %s %s  \n🔢 %s %s  \n🗺️ %s %s"):format(locale("adam_notif_label"), adam.adam, locale("status_notif_label"), adam.status, locale("localtion_notif_label"), adam.location)
 
     lib.notify({
-        title = '📢 LSPD NOTIFICATION 📢',
+        title = locale("status_notif_title"),
         description = message,
         position = 'bottom-right',
         duration = 3000,
@@ -68,15 +68,15 @@ function openPoliceMenu()
     if hasJob(Config.AccessToMenu) then
         local jobGrade = getPlayerJobGrade()
 
-        lib.setMenuOptions('police_main_menu', jobGrade >= 2 and { label = 'Call meeting', icon = 'radio' } or {}, 2)
+        lib.setMenuOptions('police_main_menu', jobGrade >= 2 and { label = locale("call_metting_label"), icon = 'radio' } or {}, 2)
         lib.showMenu("police_main_menu")
     end
 end
 
 function openAdamMenu()
-    lib.setMenuOptions('adam_menu', { label = 'Set Your Adam', description = player.adam and ('Current adam %s'):format(player.adam) or 'Set your adam!', icon = "fas fa-user" }, 1)
-    lib.setMenuOptions('adam_menu', { label = 'Set Your Adam Status', description = player.status and ('Current Status %s'):format(player.status) or 'Set your current status!', icon = "fas fa-comment" }, 2)
-    lib.setMenuOptions('adam_menu', { label = 'Receive status notifications', description = 'enable if to receive other police officer status notifications', icon = "fas fa-info", checked = player.receiveNotifications }, 3)
+    lib.setMenuOptions('adam_menu', { label = locale("set_adam_label"), description = player.adam and ('Current adam %s'):format(player.adam) or locale("set_adam_label"), icon = "fas fa-user" }, 1)
+    lib.setMenuOptions('adam_menu', { label = locale("set_adam_label_status"), description = player.status and ('Current Status %s'):format(player.status) or locale("set_adam_label_status"), icon = "fas fa-comment" }, 2)
+    lib.setMenuOptions('adam_menu', { label = locale("adam_receive_notif_label"), description = locale("adam_receive_notif_dec"), icon = "fas fa-info", checked = player.receiveNotifications }, 3)
 
     lib.showMenu('adam_menu')
 end
@@ -93,13 +93,13 @@ end)
 
 RegisterNetEvent("ars_policejob:callMeeting", function(data)
     if hasJob(Config.AccessToMenu) then
-        lib.setMenuOptions('police_meeting_menu', { label = string.len(data.reason) < 50 and ("Meeting Reason: %s"):format(data.reason) or "Read the reason under", description = data.reason, icon = 'info' }, 1)
-        lib.setMenuOptions('police_meeting_menu', { label = ("Meeting in Fz: %s"):format(data.radio), description = ("Join frequncy %s"):format(data.radio), icon = 'radio' }, 2)
+        lib.setMenuOptions('police_meeting_menu', { label = string.len(data.reason) < 50 and ("%s %s"):format(locale("meeting_reason_label"), data.reason) or locale("read_meeting_reason_label"), description = data.reason, icon = 'info' }, 1)
+        lib.setMenuOptions('police_meeting_menu', { label = ("%s %s"):format(locale("fz_meeting"), data.radio), description = ("%s %s"):format(locale("join_fz"), data.radio), icon = 'radio' }, 2)
         player.frequencyToJoin = data.radio
 
         lib.notify({
-            title = '📢 LSPD NOTIFICATION 📢',
-            description = "A high grade called a meeting Press [U] for more info",
+            title = locale("status_notif_title"),
+            description = locale("open_called_meeting_menu"),
             position = 'top-center',
             duration = 5000,
         })
