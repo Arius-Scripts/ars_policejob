@@ -81,5 +81,10 @@
 	"clocked_in": "You clocked in for the job",
 	"already_in_duty": "You are already clocked in",
 	"clocked_out": "You clocked out",
-	"already_off_duty": "Your already clocked out"
+	"already_off_duty": "Your already clocked out",
+	"broadcast_alert_label": "Broadcast message to everyone",
+	"broadcast_alert_label_dsc": "",
+	"broadcast_input_title": "Broadcast",
+	"broadcast_input_reason": "Message",
+	"broadcast_input_reason_desc": "the message that everyone will see"
 }

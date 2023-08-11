@@ -12,10 +12,21 @@ lib.registerMenu({
     if selected == 1 then
         openAdamMenu()
     elseif selected == 2 then
+        local input = lib.inputDialog(locale("broadcast_input_title"), {
+            { type = 'input', label = locale("broadcast_input_reason"), description = locale("broadcast_input_reason_desc"), required = true, min = 5, max = 500 },
+        })
+        if not input then return end
+
+        local reason = input[1]
+
+        TriggerServerEvent("ars_policejob:broadcastMsg", { reason = reason })
+    elseif selected == 3 then
+        openDialogMenu()
+    elseif selected == 4 then
         local input = lib.inputDialog(locale("open_meeting_menu_label"), {
-            { type = 'input',    label = locale("meeting_input_reason"), description = locale("meeting_input_reason_desc"), required = true, max = 500 },
-            { type = 'number',   label = locale("meeting_input_radio"),  description = locale("meeting_input_radio_desc"),  required = true, icon = 'hashtag', max = 999 },
-            { type = 'checkbox', label = locale("meeting_input_reason") },
+            { type = 'input',    label = locale("meeting_input_reason"),      description = locale("meeting_input_reason_desc"), required = true, max = 500 },
+            { type = 'number',   label = locale("meeting_input_radio"),       description = locale("meeting_input_radio_desc"),  required = true, icon = 'hashtag', max = 999 },
+            { type = 'checkbox', label = locale("meeting_input_confirmation") },
         })
         if not input then return end
         if not input[3] then return end
@@ -24,8 +35,6 @@ lib.registerMenu({
         local radio = input[2]
 
         TriggerServerEvent("ars_policejob:callMeeting", { reason = reason, radio = radio })
-    elseif selected == 3 then
-        openDialogMenu()
     end
 end)
 lib.registerMenu({

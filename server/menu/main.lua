@@ -23,11 +23,17 @@ end)
 RegisterNetEvent("ars_policejob:callMeeting", function(data)
     if not hasJob(source, Config.AccessToMenu) or not source or source < 1 then return end
 
-    print(data.reason)
-
     sendNotification({
         eventName = "ars_policejob:callMeeting",
         reason = data.reason,
         radio = data.radio,
     })
+end)
+
+RegisterNetEvent("ars_policejob:broadcastMsg", function(data)
+    if not hasJob(source, Config.AccessToMenu) or not source or source < 1 then return end
+
+    for k, playerId in ipairs(GetPlayers()) do
+        TriggerClientEvent("ars_policejob:broadcastMsg", playerId, data)
+    end
 end)

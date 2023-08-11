@@ -68,10 +68,33 @@ function openPoliceMenu()
     if hasJob(Config.AccessToMenu) then
         local jobGrade = getPlayerJobGrade()
 
-        lib.setMenuOptions('police_main_menu', jobGrade >= Config.MettingMenuGrade and { label = locale("call_metting_label"), icon = 'radio' } or {}, 2)
+        lib.setMenuOptions('police_main_menu', jobGrade >= Config.MettingMenuGrade and { label = locale("call_metting_label"), icon = 'radio' } or {}, 4)
+        lib.setMenuOptions('police_main_menu', { label = locale("broadcast_alert_label"), description = locale("broadcast_alert_label_dsc"), icon = "fas fa-bullhorn" }, 2)
+
         lib.showMenu("police_main_menu")
     end
 end
+
+RegisterNetEvent("ars_policejob:broadcastMsg", function(data)
+    local reason = data.reason
+    lib.notify({
+        title = locale("status_notif_title"),
+        description = reason,
+        position = 'bottom-right',
+        duration = 3000,
+        style = {
+            backgroundColor = '#1C1C1C',
+            color = '#C1C2C5',
+            borderRadius = '8px',
+            ['.description'] = {
+                fontSize = '16px',
+                color = '#B0B3B8'
+            },
+        },
+        icon = 'fas fa-badge-shield-altad',
+        iconColor = '#FEBD69'
+    })
+end)
 
 function openAdamMenu()
     lib.setMenuOptions('adam_menu', { label = locale("set_adam_label"), description = player.adam and ('Current adam %s'):format(player.adam) or locale("set_adam_label"), icon = "fas fa-user" }, 1)

@@ -81,5 +81,10 @@
 	"clocked_in": "Sei entrato in servizio",
 	"already_in_duty": "Sei gia in servizio",
 	"clocked_out": "Sei uscito dal servizio",
-	"already_off_duty": "Sei gia fuori servizio"
+	"already_off_duty": "Sei gia fuori servizio",
+	"broadcast_alert_label": "Broadcast messaggio a tutto",
+	"broadcast_alert_label_dsc": "",
+	"broadcast_input_title": "Broadcast",
+	"broadcast_input_reason": "Messaggio",
+	"broadcast_input_reason_desc": "Il messaggio che tutti vedranno"
 }
