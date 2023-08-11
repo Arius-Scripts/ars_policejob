@@ -10,6 +10,7 @@ Config.ItemCuffs = "handcuffs"                -- name of the item cuffs
 Config.CanBreakCuffs = true                   -- to use this function follow the installation
 Config.UseInternalDuty = true
 Config.AccessToMenu = { "police" }
+Config.OpenMenuKey = "F6"
 
 Config.Interactions = {
 	enable = true,

@@ -81,10 +81,6 @@ function openAdamMenu()
     lib.showMenu('adam_menu')
 end
 
-RegisterCommand('testmenu', function()
-    openPoliceMenu()
-end)
-
 RegisterNetEvent("ars_policejob:sendStatusNotification", function(data)
     if hasJob(Config.AccessToMenu) then
         sendNotification({
@@ -123,3 +119,12 @@ RegisterNetEvent("ars_policejob:callMeeting", function(data)
         end
     end
 end)
+
+lib.addKeybind({
+    name = 'open_police_menu',
+    description = 'Open police menu',
+    defaultKey = Config.OpenMenuKey,
+    onReleased = function(self)
+        openPoliceMenu()
+    end
+})
