@@ -14,7 +14,7 @@ function toggleClothes(toggle, clothes)
         utils.debug("Job Grade " .. jobGrade)
 
         if Config.ClothingScript and Config.ClothingScript ~= 'core' then
-            local model = exports['illenium-appearance']:getPedModel(playerPed)
+            local model = exports[Config.ClothingScript]:getPedModel(playerPed)
 
             if model == 'mp_m_freemode_01' then
                 data = clothes.male[jobGrade] or clothes.male[1]
