@@ -11,6 +11,7 @@ Config.CanBreakCuffs = true                   -- to use this function follow the
 Config.UseInternalDuty = true
 Config.AccessToMenu = { "police" }
 Config.OpenMenuKey = "F6"
+Config.MettingMenuGrade = 3
 
 Config.Interactions = {
 	enable = true,

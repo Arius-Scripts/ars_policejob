@@ -68,7 +68,7 @@ function openPoliceMenu()
     if hasJob(Config.AccessToMenu) then
         local jobGrade = getPlayerJobGrade()
 
-        lib.setMenuOptions('police_main_menu', jobGrade >= 2 and { label = locale("call_metting_label"), icon = 'radio' } or {}, 2)
+        lib.setMenuOptions('police_main_menu', jobGrade >= Config.MettingMenuGrade and { label = locale("call_metting_label"), icon = 'radio' } or {}, 2)
         lib.showMenu("police_main_menu")
     end
 end
