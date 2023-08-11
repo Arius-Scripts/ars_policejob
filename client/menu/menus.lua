@@ -6,7 +6,10 @@ lib.registerMenu({
     title = locale("police_menu_title"),
     position = 'top-right',
     options = {
-        { label = locale("open_adam_menu_label"), description = locale("open_adam_menu_description"), icon = "fas fa-car" },
+        { label = locale("open_adam_menu_label"),  description = locale("open_adam_menu_description"), icon = "fas fa-car" },
+        { label = locale("broadcast_alert_label"), description = locale("broadcast_alert_label_dsc"),  icon = "fas fa-bullhorn" },
+        { label = 'Interdict area',                icon = 'fa-tower-broadcast' },
+        { label = locale("call_metting_label"),    icon = 'radio' },
     }
 }, function(selected, scrollIndex, args)
     if selected == 1 then
@@ -23,18 +26,22 @@ lib.registerMenu({
     elseif selected == 3 then
         openDialogMenu()
     elseif selected == 4 then
-        local input = lib.inputDialog(locale("open_meeting_menu_label"), {
-            { type = 'input',    label = locale("meeting_input_reason"),      description = locale("meeting_input_reason_desc"), required = true, max = 500 },
-            { type = 'number',   label = locale("meeting_input_radio"),       description = locale("meeting_input_radio_desc"),  required = true, icon = 'hashtag', max = 999 },
-            { type = 'checkbox', label = locale("meeting_input_confirmation") },
-        })
-        if not input then return end
-        if not input[3] then return end
+        local jobGrade = getPlayerJobGrade()
 
-        local reason = input[1]
-        local radio = input[2]
+        if jobGrade >= Config.MettingMenuGrade then
+            local input = lib.inputDialog(locale("open_meeting_menu_label"), {
+                { type = 'input',    label = locale("meeting_input_reason"),      description = locale("meeting_input_reason_desc"), required = true, max = 500 },
+                { type = 'number',   label = locale("meeting_input_radio"),       description = locale("meeting_input_radio_desc"),  required = true, icon = 'hashtag', max = 999 },
+                { type = 'checkbox', label = locale("meeting_input_confirmation") },
+            })
+            if not input then return end
+            if not input[3] then return end
 
-        TriggerServerEvent("ars_policejob:callMeeting", { reason = reason, radio = radio })
+            local reason = input[1]
+            local radio = input[2]
+
+            TriggerServerEvent("ars_policejob:callMeeting", { reason = reason, radio = radio })
+        end
     end
 end)
 lib.registerMenu({

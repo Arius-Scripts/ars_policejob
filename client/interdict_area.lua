@@ -77,5 +77,3 @@ RegisterNetEvent('ars_policejob:activateBlip', function(data)
     Wait(data.time)
     RemoveBlip(blip)
 end)
-
-lib.setMenuOptions('police_main_menu', { label = 'Interdict area', icon = 'fa-tower-broadcast' }, 3)

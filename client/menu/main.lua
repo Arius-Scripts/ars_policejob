@@ -66,11 +66,6 @@ function openPoliceMenu()
     if player.inDuty() == false then return utils.showNotification(locale("your_off_duty")) end
 
     if hasJob(Config.AccessToMenu) then
-        local jobGrade = getPlayerJobGrade()
-
-        lib.setMenuOptions('police_main_menu', jobGrade >= Config.MettingMenuGrade and { label = locale("call_metting_label"), icon = 'radio' } or {}, 4)
-        lib.setMenuOptions('police_main_menu', { label = locale("broadcast_alert_label"), description = locale("broadcast_alert_label_dsc"), icon = "fas fa-bullhorn" }, 2)
-
         lib.showMenu("police_main_menu")
     end
 end
