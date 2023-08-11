@@ -45,7 +45,7 @@ local function playerInteractions()
 				utils.debug(("^1search_suspect ^3 Is Target Fragile: %s"):format(isEntityFragile(entity)))
 				utils.debug(("^1search_suspect ^3 Are you armed: %s"):format(IsPedArmed(cache.ped, 6)))
 
-				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6) and player.onDuty
+				return isEntityFragile(entity) and IsPedArmed(cache.ped, 6) and player.inDuty()
 			end,
 			onSelect = function(data)
 				exports.ox_inventory:openNearbyInventory()
@@ -70,7 +70,7 @@ local function playerInteractions()
 					utils.debug(("^2handcuff_suspect ^3 Does target have hands up: %s"):format(
 						isEntityHandsUp(entity)))
 
-					return count > 0 and not isEntityHandCuffed(entity) and isEntityHandsUp(entity)
+					return count > 0 and not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and player.inDuty()
 				end,
 				onSelect = function(data)
 					player.handcuff(data.entity)
@@ -87,7 +87,7 @@ local function playerInteractions()
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("uncuff_suspect Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
 
-					return isEntityHandCuffed(entity)
+					return isEntityHandCuffed(entity) and player.inDuty()
 				end,
 				onSelect = function(data)
 					player.uncuff(data.entity)
@@ -107,7 +107,7 @@ local function playerInteractions()
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("^4drag_suspect ^3 Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
 
-					return isEntityHandCuffed(entity)
+					return isEntityHandCuffed(entity) and player.inDuty()
 				end,
 				onSelect = function(data)
 					player.drag(data.entity)
@@ -130,7 +130,7 @@ local function playerInteractions()
 				utils.debug(("^5put_suspect_in^3 Is Target handcuffed: %s"):format(isEntityHandCuffed(entity)))
 				utils.debug(("^5put_suspect_in^3 Is there a vehicle neaby: %s"):format(vehicle))
 
-				return isEntityHandCuffed(entity) and vehicle
+				return isEntityHandCuffed(entity) and vehicle and player.inDuty()
 			end,
 			onSelect = function(data)
 				player.putInVehicle(data.entity)
@@ -145,6 +145,9 @@ local function playerInteractions()
 			label = locale('fine_suspect_label'),
 			groups = Config.Interactions.jobs,
 			distance = 3,
+			canInteract = function(entity, distance, coords, name)
+				return player.inDuty()
+			end,
 			onSelect = function(data)
 				player.finePlayer(data.entity)
 			end
@@ -167,7 +170,7 @@ local function playerInteractions()
 					-- 	120))
 
 					-- return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and #(cache.coords - station.zone.pos) <= 120
-					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity)
+					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and player.inDuty()
 				end,
 				onSelect = function(data)
 					if Config.PrisonSystem == 'esx-qalle-jail' then
@@ -195,7 +198,7 @@ local function vehicleInteractions()
 			bones = { doorBone, seatBone },
 			groups = Config.Interactions.jobs,
 			canInteract = function(entity, distance, coords, name)
-				return player.showPutOutOption(entity, coords, doorBone, seatBone)
+				return player.showPutOutOption(entity, coords, doorBone, seatBone) and player.inDuty()
 			end,
 			onSelect = function(data)
 				player.takeOutFromVehicle(data.coords)
@@ -210,7 +213,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp and player.inDuty()
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_roadcone02a')
@@ -223,7 +226,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp and player.inDuty()
 		end,
 		onSelect = function(data)
 			player.spawnProp('prop_barrier_work05')
@@ -236,7 +239,7 @@ local function vehicleInteractions()
 		bones = 'boot',
 		groups = Config.Interactions.jobs,
 		canInteract = function(entity, distance, coords, name)
-			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp
+			return GetVehicleDoorAngleRatio(entity, 5) > 0.0 and player.isPoliceVehicle(entity) and not player.isPlacingProp and player.inDuty()
 		end,
 		onSelect = function(data)
 			player.spawnProp('p_ld_stinger_s')
