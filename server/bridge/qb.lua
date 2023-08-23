@@ -1,4 +1,4 @@
-local QBCore = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
+QBCore = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 
 if not QBCore then return end
 

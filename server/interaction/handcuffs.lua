@@ -9,6 +9,13 @@ RegisterNetEvent('ars_policejob:handcuff', function(data)
 	else
 		TriggerClientEvent('ars_policejob:handcuff', tonumber(data.targetServerId), data.handcuffStatus)
 		exports.ox_inventory:RemoveItem(source, Config.ItemCuffs, 1)
+
+		if QBCore then
+			local Player = QBCore.Functions.GetPlayer(data.targetServerId)
+			if Player then
+				Player.Functions.SetMetaData("ishandcuffed", true)
+			end
+		end
 	end
 end)
 
@@ -22,5 +29,12 @@ RegisterNetEvent('ars_policejob:uncuff', function(data)
 		print(source .. ' probile modder')
 	else
 		TriggerClientEvent('ars_policejob:uncuff', tonumber(data.targetServerId))
+
+		if QBCore then
+			local Player = QBCore.Functions.GetPlayer(data.targetServerId)
+			if Player then
+				Player.Functions.SetMetaData("ishandcuffed", true)
+			end
+		end
 	end
 end)
