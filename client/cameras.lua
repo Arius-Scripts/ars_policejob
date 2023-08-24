@@ -51,6 +51,7 @@ local function switchCamera(nextCamera, station)
 
     SetCamCoord(camera, station.cameras.views[nextCamera].pos)
     SetCamRot(camera, station.cameras.views[nextCamera].rot)
+    SetFocusArea(station.cameras.views[nextCamera].pos, 0.0, 0.0, 0.0)
 
     return nextCamera
 end
@@ -90,6 +91,7 @@ local function startLoop(station)
             ResetScenarioTypesEnabled()
             RenderScriptCams(false, false, 1, false, false)
             SetCamActive(camera, false)
+            ClearFocus()
             currentCamera = 1
             viewingCam = false
             lib.hideTextUI()
@@ -112,6 +114,7 @@ local function viewCamera(station)
     camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos, camRot, 100.0, true, 2)
     RenderScriptCams(true, true, 1, true, true)
     SetCamActive(camera, true)
+    SetFocusArea(camPos, 0.0, 0.0, 0.0)
 
     SetTimecycleModifier("scanline_cam_cheap")
     SetTimecycleModifierStrength(2.0)
