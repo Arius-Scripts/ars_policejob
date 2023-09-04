@@ -166,11 +166,10 @@ local function playerInteractions()
 				canInteract = function(entity, distance, coords, name)
 					utils.debug(("^6arrest_suspect^3 Is Target not handcuffed: %s"):format(not isEntityHandCuffed(entity)))
 					utils.debug(("^6arrest_suspect^3 Does target have handsup: %s"):format(isEntityHandsUp(entity)))
-					-- utils.debug(("^6arrest_suspect^3 Are you near the police station: %s"):format(#(cache.coords - station.zone.pos) <=
-					-- 	120))
+					utils.debug(("^6arrest_suspect^3 Are you near the police station: %s"):format(player.nearStation and "yes" or "no"))
 
 					-- return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and #(cache.coords - station.zone.pos) <= 120
-					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and player.inDuty()
+					return not isEntityHandCuffed(entity) and isEntityHandsUp(entity) and player.inDuty() and player.nearStation
 				end,
 				onSelect = function(data)
 					if Config.PrisonSystem == 'esx-qalle-jail' then

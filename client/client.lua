@@ -1,7 +1,8 @@
-local DeletePed = DeletePed
-station         = nil
-player          = {}
-local stations  = {}
+local DeletePed    = DeletePed
+station            = nil
+player             = {}
+player.nearStation = false
+local stations     = {}
 
 
 for index, station in pairs(Config.PoliceStations) do
@@ -27,6 +28,7 @@ for index, station in pairs(Config.PoliceStations) do
             cfg.armory.jobs = station.jobs
             initArmory(cfg.armory)
             initGarage(cfg.garage, station.jobs)
+            player.nearStation = true
         end,
         onExit = function(self)
             for k, v in pairs(peds) do
@@ -34,6 +36,7 @@ for index, station in pairs(Config.PoliceStations) do
                     DeletePed(v)
                 end
             end
+            player.nearStation = false
         end
     })
 end
