@@ -26,3 +26,11 @@ function playerJob(target)
 
     return xPlayer.job.name
 end
+
+CreateThread(function()
+    for index, station in pairs(Config.PoliceStations) do
+        for _, jobName in pairs(station.jobs) do
+            TriggerEvent('esx_society:registerSociety', jobName, jobName, 'society_' .. jobName, 'society_' .. jobName, 'society_' .. jobName, { type = 'public' })
+        end
+    end
+end)
