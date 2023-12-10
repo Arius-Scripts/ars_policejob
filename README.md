@@ -36,7 +36,7 @@ _Experience the ultimate law enforcement roleplay with Arius Policejob 👮. Res
 -   Otimized 0.0ms idle
 
 **Download:**
-https://github.com/Arius-Development/ars_policejob
+https://github.com/Arius-Scripts/ars_policejob
 
 **Installation**
 https://ariuss-development.gitbook.io/ariusdevelopment/
