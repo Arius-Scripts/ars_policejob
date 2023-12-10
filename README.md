@@ -39,7 +39,7 @@ _Experience the ultimate law enforcement roleplay with Arius Policejob 👮. Res
 https://github.com/Arius-Scripts/ars_policejob
 
 **Installation**
-https://ariuss-development.gitbook.io/ariusdevelopment/
+https://docs.arius-scripts.com/
 
 **Forums:**
 https://forum.cfx.re/t/free-esx-qbcore-arius-policejob/5128137
