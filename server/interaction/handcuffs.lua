@@ -33,7 +33,7 @@ RegisterNetEvent('ars_policejob:uncuff', function(data)
 		if QBCore then
 			local Player = QBCore.Functions.GetPlayer(data.targetServerId)
 			if Player then
-				Player.Functions.SetMetaData("ishandcuffed", true)
+				Player.Functions.SetMetaData("ishandcuffed", false)
 			end
 		end
 	end
