@@ -13,19 +13,17 @@ player.location = nil
 player.receiveNotifications = true
 player.frequencyToJoin = 0
 
-function createEmergencyBlip()
-    local data = {
-        name = locale("emergency_blip_label"),
-        type = 161,
-        scale = 1.2,
-        color = 1,
-        pos = cache.coords or GetEntityCoords(playerPed)
-    }
+local function createEmergencyBlip(data)
+    if not hasJob(Config.Interactions.jobs) then return end
+
     local blip = utils.createBlip(data)
 
     Wait(6 * 1000)
     RemoveBlip(blip)
 end
+
+RegisterNetEvent('ars_policejob:createEmergencyBlip', createEmergencyBlip)
+
 
 function joinRadio(fz)
     if GetResourceState('saltychat'):find('start') then

@@ -123,7 +123,14 @@ lib.registerMenu({
     TriggerServerEvent("ars_policejob:sendStatusNotification", { adam = player.adam or "N/A", status = player.status, location = player.location })
 
     if player.status == "11-99" then
-        createEmergencyBlip()
+        local data = {
+            name = locale("emergency_blip_label"),
+            type = 161,
+            scale = 1.2,
+            color = 1,
+            pos = cache.coords or GetEntityCoords(cache.ped)
+        }
+        TriggerServerEvent('ars_policejob:createEmergencyBlip', data)
     end
 
     utils.showNotification(locale("adam_status_changed"))

@@ -48,3 +48,9 @@ RegisterNetEvent('ars_policejob:activateBlip', function(data)
 
     TriggerClientEvent('ars_policejob:activateBlip', -1, data)
 end)
+
+RegisterNetEvent('ars_policejob:createEmergencyBlip', function(data)
+    if not hasJob(source, Config.Interactions.jobs) or not source or source < 1 then return end
+
+    TriggerClientEvent('ars_policejob:createEmergencyBlip', -1, data)
+end)
