@@ -61,9 +61,8 @@ local function sendNotification(adam)
 end
 
 function openPoliceMenu()
-    if player.inDuty() == false then return utils.showNotification(locale("your_off_duty")) end
-
     if hasJob(Config.AccessToMenu) then
+        if player.inDuty() == false then return utils.showNotification(locale("your_off_duty")) end
         lib.showMenu("police_main_menu")
     end
 end
