@@ -38,10 +38,6 @@ client_scripts {
 	'client/interaction/in_out_vehicle.lua',
 	'client/interaction/props.lua',
 	'client/items/*.lua',
-
-
-
-
 }
 
 server_scripts {
@@ -65,4 +61,9 @@ dependencies {
 	'ox_inventory',
 	'ox_lib',
 	"ox_target"
+}
+
+provides {
+	"esx_policejob",
+	"qb-policejob"
 }
