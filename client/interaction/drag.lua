@@ -89,5 +89,9 @@ RegisterNetEvent('ars_policejob:drag', function(playerid)
 	DetachEntity(playerPed, true, false)
 end)
 
-exports('isDragged', player.isDragged)
-exports('isDragging', player.isDragging)
+exports('isDragged', function()
+	return player.isDragged
+end)
+exports('isDragging', function()
+	return player.isDragging
+end)

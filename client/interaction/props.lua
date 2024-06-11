@@ -197,4 +197,6 @@ AddEventHandler('onResourceStop', function(resourceName)
     deleteProp()
 end)
 
-exports('isPlacingProp', player.isPlacingProp)
+exports('isPlacingProp', function()
+    return player.isPlacingProp
+end)
