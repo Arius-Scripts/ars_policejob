@@ -224,5 +224,9 @@ AddEventHandler('onResourceStop', function(resourceName)
 end)
 
 
-exports('cuffed', player.cuffed)
-exports('cuffs', player.cuffs)
+exports('cuffed', function()
+	return player.cuffed
+end)
+exports('cuffs', function()
+	return player.cuffs
+end)
