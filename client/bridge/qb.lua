@@ -125,6 +125,8 @@ function openBossMenu(job)
     TriggerEvent("qb-bossmenu:client:OpenMenu")
 end
 
-exports("IsHandCuffed", function()
-    return exports.ars_policejob:cuffed()
+AddEventHandler('__cfx_export_qb-policejob_IsHandCuffed', function(setCB)
+    setCB(function()
+        return exports.ars_policejob:cuffed()
+    end)
 end)
