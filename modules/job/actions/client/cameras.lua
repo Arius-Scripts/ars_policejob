@@ -136,6 +136,9 @@ for index, station in pairs(Config.PoliceStations) do
                 icon = 'fa-solid fa-road',
                 label = locale("view_cameras_label"),
                 groups = station.jobs,
+                canInteract = function(entity, distance, coords, name)
+                    return player.inDuty()
+                end,
                 onSelect = function(data)
                     viewCamera(station)
                 end

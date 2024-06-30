@@ -1,9 +1,7 @@
-player.onDuty = nil
-
 function player.inDuty()
     if not Config.UseInternalDuty then return true end
 
-    if player.onDuty == nil then lib.callback.await('ars_policejob:getDutyStatus', false) end
+    if player.onDuty == nil then player.onDuty = lib.callback.await('ars_policejob:getDutyStatus', false) end
 
     return player.onDuty
 end

@@ -59,14 +59,15 @@ end)
 RegisterNetEvent("ars_policejob:updateDuty", function(value)
     local source = source
     local playerIdentifier = GetPlayerIdentifierByType(source, "license")
-
-    SetResourceKvp("ars_policejob:" .. playerIdentifier, value)
+    SetResourceKvpInt("policejob_duty:" .. playerIdentifier, value == true and 1 or 0)
     TriggerClientEvent("ars_policejob:dutyStatusUpdated", source, value)
 end)
 
 lib.callback.register('ars_policejob:getDutyStatus', function(source)
     local playerIdentifier = GetPlayerIdentifierByType(source, "license")
-    return GetResourceKvpString("ars_policejob:" .. playerIdentifier)
+    local value = GetResourceKvpInt("policejob_duty:" .. playerIdentifier)
+
+    return value == 1 and true or false
 end)
 
 lib.versionCheck('Arius-Development/ars_policejob')
