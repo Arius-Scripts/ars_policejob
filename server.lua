@@ -56,4 +56,17 @@ RegisterNetEvent('ars_policejob:createEmergencyBlip', function(data)
 end)
 
 
+RegisterNetEvent("ars_policejob:updateDuty", function(value)
+    local source = source
+    local playerIdentifier = GetPlayerIdentifierByType(source, "license")
+
+    SetResourceKvp("ars_policejob:" .. playerIdentifier, value)
+    TriggerClientEvent("ars_policejob:dutyStatusUpdated", source, value)
+end)
+
+lib.callback.register('ars_policejob:getDutyStatus', function(source)
+    local playerIdentifier = GetPlayerIdentifierByType(source, "license")
+    return GetResourceKvpString("ars_policejob:" .. playerIdentifier)
+end)
+
 lib.versionCheck('Arius-Development/ars_policejob')

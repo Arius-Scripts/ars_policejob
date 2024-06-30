@@ -1,12 +1,19 @@
-player.onDuty = false
+player.onDuty = nil
 
 function player.inDuty()
-    if Config.UseInternalDuty then return player.onDuty end
+    if not Config.UseInternalDuty then return true end
 
-    return true
+    if player.onDuty == nil then lib.callback.await('ars_policejob:getDutyStatus', false) end
+
+    return player.onDuty
 end
 
 if not Config.UseInternalDuty then return end
+
+RegisterNetEvent("ars_policejob:dutyStatusUpdated", function(value)
+    player.onDuty = value
+end)
+
 
 for index, station in pairs(Config.PoliceStations) do
     exports.ox_target:addBoxZone({
@@ -22,7 +29,7 @@ for index, station in pairs(Config.PoliceStations) do
                 groups = station.jobs,
                 onSelect = function(data)
                     if not player.onDuty then
-                        player.onDuty = true
+                        TriggerServerEvent("ars_policejob:updateDuty", true)
                         utils.showNotification(locale("clocked_in"))
                     else
                         utils.showNotification(locale("already_in_duty"))
@@ -36,7 +43,7 @@ for index, station in pairs(Config.PoliceStations) do
                 groups = station.jobs,
                 onSelect = function(data)
                     if player.onDuty then
-                        player.onDuty = false
+                        TriggerServerEvent("ars_policejob:updateDuty", false)
                         utils.showNotification(locale("clocked_out"))
                     else
                         utils.showNotification(locale("already_off_duty"))
