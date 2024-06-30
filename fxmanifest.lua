@@ -12,40 +12,38 @@ version '1.0.4'
 --#--
 
 client_scripts {
-	'client/functions/utils.lua',
-	'client/client.lua',
+	"modules/utils/client/utils.lua",
+	'client.lua',
 
-	'client/bridge/esx.lua',
-	'client/bridge/qb.lua',
+	"modules/compatibility/frameworks/**/client.lua",
 
-	'client/menu/main.lua',
-	'client/menu/menus.lua',
+	'modules/menu/client/main.lua',
+	'modules/menu/client/menus.lua',
 
 
-	'client/clothing.lua',
-	'client/armory.lua',
-	'client/garage.lua',
-	'client/interdict_area.lua',
-	'client/stashes.lua',
-	'client/cameras.lua',
-	'client/bossmenu.lua',
-	'client/duty.lua',
+	'modules/actions/client/clothing.lua',
+	'modules/actions/client/armory.lua',
+	'modules/actions/client/garage.lua',
+	'modules/actions/client/interdict_area.lua',
+	'modules/actions/client/stashes.lua',
+	'modules/actions/client/cameras.lua',
+	'modules/actions/client/bossmenu.lua',
+	'modules/actions/client/duty.lua',
 
-	'client/interaction/interaction.lua',
-	'client/interaction/drag.lua',
-	'client/interaction/handcuffs.lua',
-	'client/interaction/fine.lua',
-	'client/interaction/in_out_vehicle.lua',
-	'client/interaction/props.lua',
-	'client/items/*.lua',
+	'modules/interactions/client.lua',
+	'modules/interactions/drag/client.lua',
+	'modules/interactions/handcuffs/client.lua',
+	'modules/interactions/fine/client.lua',
+	'modules/interactions/escort/client.lua',
+	'modules/interactions/props/client.lua',
+	'modules/items/**/client.lua',
 }
 
 server_scripts {
-	'server/server.lua',
-	'server/menu/main.lua',
-	'server/interaction/*.lua',
-	'server/bridge/esx.lua',
-	'server/bridge/qb.lua',
+	'server.lua',
+	'modules/menu/server.lua',
+	'modules/interactions/**/server.lua',
+	"modules/compatibility/frameworks/**/server.lua",
 }
 
 shared_scripts {
